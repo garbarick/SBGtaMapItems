@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical">
+
+	<Spinner
+		android:layout_width="match_parent"
+		android:id="@+id/maps"
+		android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="42dp">
+
+        <ImageButton
+            android:src="@drawable/original"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/original"
+            android:layout_weight="1"
+            android:scaleType="centerInside"/>
+
+        <ImageButton
+            android:src="@drawable/zoom"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/zoom"
+            android:layout_weight="1"
+            android:scaleType="centerInside"/>
+
+        <ImageButton
+            android:src="@drawable/zoom_in"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/zoom_in"
+            android:layout_weight="1"
+            android:scaleType="centerInside"/>
+
+        <ImageButton
+            android:src="@drawable/zoom_out"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/zoom_out"
+            android:layout_weight="1"
+            android:scaleType="centerInside"/>
+
+        <ImageButton
+            android:src="@drawable/check_selector"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/check"
+            android:layout_weight="1"
+            android:scaleType="centerInside"/>
+
+        <ImageButton
+            android:src="@drawable/erase_selector"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/erase"
+            android:layout_weight="1"
+            android:scaleType="centerInside"/>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ru.net.serbis.gtamapitems.view.ImageViewExt
+                android:adjustViewBounds="true"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/img"/>
+
+        </HorizontalScrollView>
+
+    </ScrollView>
+
+</LinearLayout>
+

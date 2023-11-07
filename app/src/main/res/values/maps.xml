@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="map_gta_lcs_portland_packages">(GTA LCS) Portland packages</string>
+    <string name="map_gta_3_jumps">(GTA 3) jumps</string>
+    <string name="map_gta_3_packages">(GTA 3) packages</string>
+    <string name="map_gta_3_rampages">(GTA 3) rampages</string>
     <string name="map_gta_lcs_portland_others">(GTA LCS) Portland others</string>
-    <string name="map_gta_lcs_shoreside_packages">(GTA LCS) Shoreside packages</string>
+    <string name="map_gta_lcs_portland_packages">(GTA LCS) Portland packages</string>
     <string name="map_gta_lcs_shoreside_others">(GTA LCS) Shoreside others</string>
-    <string name="map_gta_lcs_staunton_packages">(GTA LCS) Staunton packages</string>
+    <string name="map_gta_lcs_shoreside_packages">(GTA LCS) Shoreside packages</string>
     <string name="map_gta_lcs_staunton_others">(GTA LCS) Staunton others</string>
+    <string name="map_gta_lcs_staunton_packages">(GTA LCS) Staunton packages</string>
+    <string name="map_gta_vc_jumps">(GTA VC) jumps</string>
+    <string name="map_gta_vc_packages">(GTA VC) packages</string>
+    <string name="map_gta_vc_rampages">(GTA VC) rampages</string>
+    <string name="map_gta_vcs_balloons">(GTA VCS) balloons</string>
+    <string name="map_gta_vcs_jumps">(GTA VCS) jumps</string>
+    <string name="map_gta_vcs_rampages">(GTA VCS) rampages</string>
 </resources>

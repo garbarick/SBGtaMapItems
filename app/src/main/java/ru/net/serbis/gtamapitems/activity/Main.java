@@ -49,16 +49,32 @@ public class Main extends Activity implements OnChangeCheckingListener
         adapter = new MapsAdapter(this);
         maps.setAdapter(adapter);
         maps.setOnItemSelectedListener(new MapSelectListener(this, adapter));
+
+        String mapId = Tools.get().getPreferences(this).getString(Constants.LAST_MAP, "");
+        initCurrent(mapId);
+    }
+
+    private void initCurrent(String mapId)
+    {
+        for (int i = 0; i < adapter.getCount(); i++)
+        {
+            Resource resource = adapter.getItem(i);
+            if (mapId.equals(resource.getNameId()))
+            {
+                maps.setSelection(i);
+                break;
+            }
+        }
     }
 
     @Override
     public void onChange(ImageViewExt view)
     {
         Resource resource = adapter.getItem(maps.getSelectedItemPosition());
-        String key = resource.getNameId();
+        String mapId = resource.getNameId();
         String value = new JsonTools().toJson(view.getPoints());
         SharedPreferences.Editor editor = Tools.get().getPreferencesEditor(this);
-        editor.putString(key, value);
+        editor.putString(mapId, value);
         editor.commit();
     }
 }

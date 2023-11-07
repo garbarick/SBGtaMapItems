@@ -4,4 +4,5 @@ public interface Constants
 {
     String THROWABLE = "throwable";
     String APP = "SBGtaMapItems";
+    String LAST_MAP = "lastMap";
 }

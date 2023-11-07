@@ -1,6 +1,7 @@
 package ru.net.serbis.gtamapitems.listener;
 
 import android.app.*;
+import android.content.*;
 import android.view.*;
 import android.widget.*;
 import ru.net.serbis.gtamapitems.*;
@@ -27,9 +28,13 @@ public class MapSelectListener implements AdapterView.OnItemSelectedListener
     {
         Resource resource = adapter.getItem(pos);
         img.setImageResource(resource.getId());
-        String key = resource.getNameId();
-        String value = Tools.get().getPreferences(context).getString(key, "[]");
+        String mapId = resource.getNameId();
+        String value = Tools.get().getPreferences(context).getString(mapId, "[]");
         img.setPoints(new JsonTools().parsePoints(value));
+
+        SharedPreferences.Editor editor = Tools.get().getPreferencesEditor(context);
+        editor.putString(Constants.LAST_MAP, mapId);
+        editor.commit();
     }
 
     @Override

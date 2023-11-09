@@ -72,7 +72,7 @@ public class Main extends Activity implements OnChangeCheckingListener
     {
         Resource resource = adapter.getItem(maps.getSelectedItemPosition());
         String mapId = resource.getNameId();
-        String value = new JsonTools().toJson(view.getPoints());
+        String value = new JsonTools().toJson(view.getChecks());
         SharedPreferences.Editor editor = Tools.get().getPreferencesEditor(this);
         editor.putString(mapId, value);
         editor.commit();

@@ -7,16 +7,18 @@ import ru.net.serbis.gtamapitems.*;
 import ru.net.serbis.gtamapitems.util.*;
 import ru.net.serbis.gtamapitems.view.*;
 
-public class ButtonsListener implements View.OnClickListener
+public class ButtonsListener implements View.OnClickListener, PopupMenu.OnMenuItemClickListener
 {
     private Activity context;
     private ImageViewExt img;
+    private PopupMenu menu;
 
     public ButtonsListener(Activity context)
     {
         this.context = context;
         img = Tools.get().findView(context, R.id.img);
         initButtons();
+        initMenu();
     }
 
     private void initButtons()
@@ -33,6 +35,15 @@ public class ButtonsListener implements View.OnClickListener
     {
         ImageButton button = Tools.get().findView(context, id);
         button.setOnClickListener(this);
+    }
+
+    private void initMenu()
+    {
+        ImageButton button = Tools.get().findView(context, R.id.check);
+        menu = new PopupMenu(context, button);
+        menu.getMenuInflater().inflate(R.menu.check_menu, menu.getMenu());
+        menu.setOnMenuItemClickListener(this);
+        new Reflection().setIconPopup(menu);
     }
 
     @Override
@@ -61,12 +72,35 @@ public class ButtonsListener implements View.OnClickListener
         }
     }
 
+    @Override
+    public boolean onMenuItemClick(MenuItem item)
+    {
+        int type = item.getOrder();
+        check(type);
+        return true;
+    }
+
     private void check(ImageButton button)
     {
-        button.setSelected(!button.isSelected());
+        if (button.isSelected())
+        {
+            button.setSelected(false);
+            img.setChecking(false);
+        }
+        else
+        {
+            menu.show();
+        }
+    }
+
+    private void check(int type)
+    {
+        ImageButton button = Tools.get().findView(context, R.id.check);
+        button.setSelected(true);
         selectButton(R.id.erase, false);
-        img.setChecking(button.isSelected());
+        img.setChecking(true);
         img.setErasing(false);
+        img.setType(type);
     }
 
     private void erase(ImageButton button)

@@ -30,7 +30,7 @@ public class MapSelectListener implements AdapterView.OnItemSelectedListener
         img.setImageResource(resource.getId());
         String mapId = resource.getNameId();
         String value = Tools.get().getPreferences(context).getString(mapId, "[]");
-        img.setPoints(new JsonTools().parsePoints(value));
+        img.setChecks(new JsonTools().parseChecks(value));
 
         SharedPreferences.Editor editor = Tools.get().getPreferencesEditor(context);
         editor.putString(Constants.LAST_MAP, mapId);

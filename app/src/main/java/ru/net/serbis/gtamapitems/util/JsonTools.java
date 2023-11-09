@@ -1,21 +1,22 @@
 package ru.net.serbis.gtamapitems.util;
 
-import android.graphics.*;
 import java.util.*;
 import org.json.*;
+import ru.net.serbis.gtamapitems.data.*;
 
 public class JsonTools
 {
-    public String toJson(List<Point> points)
+    public String toJson(List<Check> checks)
     {
         JSONArray items = new JSONArray();
         try
         {
-            for (Point point : points)
+            for (Check check : checks)
             {
                 JSONObject item = new JSONObject();
-                item.put("x", point.x);
-                item.put("y", point.y);
+                item.put("x", check.x);
+                item.put("y", check.y);
+                item.put("t", check.type);
                 items.put(item);
             }
         }
@@ -26,23 +27,28 @@ public class JsonTools
         return items.toString();
     }
 
-    public List<Point> parsePoints(String json)
+    public List<Check> parseChecks(String json)
     {
-        List<Point> points = new ArrayList<Point>();
+        List<Check> result = new ArrayList<Check>();
         try
         {
             JSONArray items = new JSONArray(json);
             for (int i = 0; i < items.length(); i++)
             {
                 JSONObject item = items.getJSONObject(i);
-                Point point = new Point(item.getInt("x"), item.getInt("y"));
-                points.add(point);
+                Check check = new Check(getInt(item, "x"), getInt(item, "y"), getInt(item, "t"));
+                result.add(check);
             }
         }
         catch (Exception e)
         {
             Log.error(this, e);
         }
-        return points;
+        return result;
+    }
+
+    private int getInt(JSONObject item, String key) throws Exception
+    {
+        return item.has(key) ? item.getInt(key) : 0;
     }
 }

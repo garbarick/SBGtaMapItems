@@ -14,23 +14,23 @@ public class MapSelectListener implements AdapterView.OnItemSelectedListener
 {
     private Activity context;
     private MapsAdapter adapter;
-    private ImageViewExt img;
+    private ImageViewExt map;
 
     public MapSelectListener(Activity context, MapsAdapter adapter)
     {
         this.context = context;
         this.adapter = adapter;
-        img = Tools.get().findView(context, R.id.img);
+        map = Tools.get().findView(context, R.id.map);
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
     {
         Resource resource = adapter.getItem(pos);
-        img.setImageResource(resource.getId());
-        String mapId = resource.getNameId();
+        map.setImageResource(resource.getDrawableId());
+        String mapId = resource.getName();
         String value = Tools.get().getPreferences(context).getString(mapId, "[]");
-        img.setChecks(new JsonTools().parseChecks(value));
+        map.setChecks(new JsonTools().parseChecks(value));
 
         SharedPreferences.Editor editor = Tools.get().getPreferencesEditor(context);
         editor.putString(Constants.LAST_MAP, mapId);

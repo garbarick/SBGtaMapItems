@@ -12,7 +12,7 @@ import ru.net.serbis.gtamapitems.listener.*;
 import ru.net.serbis.gtamapitems.util.*;
 import ru.net.serbis.gtamapitems.view.*;
 
-public class Main extends Activity implements OnChangeCheckingListener
+public class Main extends Activity implements ImageViewExt.OnChangeCheckingListener
 {
     private Spinner maps;
     private MapsAdapter adapter;
@@ -23,7 +23,7 @@ public class Main extends Activity implements OnChangeCheckingListener
         super.onCreate(savedInstanceState);
         setContentView(getLayout());
         
-        initImg();
+        initMap();
         initMaps();
         new ButtonsListener(this);
     }
@@ -37,10 +37,10 @@ public class Main extends Activity implements OnChangeCheckingListener
         return R.layout.main_portrait;
     }
 
-    private void initImg()
+    private void initMap()
     {
-        ImageViewExt img = Tools.get().findView(this, R.id.img);
-        img.setOnChangeCheckingListener(this);
+        ImageViewExt map = Tools.get().findView(this, R.id.map);
+        map.setOnChangeCheckingListener(this);
     }
 
     private void initMaps()
@@ -59,7 +59,7 @@ public class Main extends Activity implements OnChangeCheckingListener
         for (int i = 0; i < adapter.getCount(); i++)
         {
             Resource resource = adapter.getItem(i);
-            if (mapId.equals(resource.getNameId()))
+            if (mapId.equals(resource.getName()))
             {
                 maps.setSelection(i);
                 break;
@@ -68,10 +68,10 @@ public class Main extends Activity implements OnChangeCheckingListener
     }
 
     @Override
-    public void onChange(ImageViewExt view)
+    public void onChangeChecking(ImageViewExt view)
     {
         Resource resource = adapter.getItem(maps.getSelectedItemPosition());
-        String mapId = resource.getNameId();
+        String mapId = resource.getName();
         String value = new JsonTools().toJson(view.getChecks());
         SharedPreferences.Editor editor = Tools.get().getPreferencesEditor(this);
         editor.putString(mapId, value);

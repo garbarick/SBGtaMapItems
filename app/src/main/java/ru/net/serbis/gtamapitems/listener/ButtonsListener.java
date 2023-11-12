@@ -4,21 +4,22 @@ import android.app.*;
 import android.view.*;
 import android.widget.*;
 import ru.net.serbis.gtamapitems.*;
+import ru.net.serbis.gtamapitems.popup.*;
 import ru.net.serbis.gtamapitems.util.*;
 import ru.net.serbis.gtamapitems.view.*;
 
-public class ButtonsListener implements View.OnClickListener, PopupMenu.OnMenuItemClickListener
+public class ButtonsListener implements View.OnClickListener, CheckBoxesPopup.OnChangeCheckTypeListener
 {
     private Activity context;
-    private ImageViewExt img;
-    private PopupMenu menu;
+    private ImageViewExt map;
+    private CheckBoxesPopup popup;
 
     public ButtonsListener(Activity context)
     {
         this.context = context;
-        img = Tools.get().findView(context, R.id.img);
+        map = Tools.get().findView(context, R.id.map);
         initButtons();
-        initMenu();
+        initPopup();
     }
 
     private void initButtons()
@@ -37,13 +38,10 @@ public class ButtonsListener implements View.OnClickListener, PopupMenu.OnMenuIt
         button.setOnClickListener(this);
     }
 
-    private void initMenu()
+    private void initPopup()
     {
-        ImageButton button = Tools.get().findView(context, R.id.check);
-        menu = new PopupMenu(context, button);
-        menu.getMenuInflater().inflate(R.menu.check_menu, menu.getMenu());
-        menu.setOnMenuItemClickListener(this);
-        new Reflection().setIconPopup(menu);
+        popup = new CheckBoxesPopup(context);
+        popup.setOnChangeCheckTypeListener(this);
     }
 
     @Override
@@ -72,74 +70,68 @@ public class ButtonsListener implements View.OnClickListener, PopupMenu.OnMenuIt
         }
     }
 
-    @Override
-    public boolean onMenuItemClick(MenuItem item)
-    {
-        int type = item.getOrder();
-        check(type);
-        return true;
-    }
-
     private void check(ImageButton button)
     {
         if (button.isSelected())
         {
             button.setSelected(false);
-            img.setChecking(false);
+            map.setChecking(false);
         }
         else
         {
-            menu.show();
+            popup.updateCounts(map.getChecks());
+            popup.show(button);
         }
     }
 
-    private void check(int type)
+    @Override
+    public void onChangeCheckType(int type)
     {
         ImageButton button = Tools.get().findView(context, R.id.check);
         button.setSelected(true);
         selectButton(R.id.erase, false);
-        img.setChecking(true);
-        img.setErasing(false);
-        img.setType(type);
+        map.setChecking(true);
+        map.setErasing(false);
+        map.setType(type);
     }
 
     private void erase(ImageButton button)
     {
         button.setSelected(!button.isSelected());
         selectButton(R.id.check, false);
-        img.setErasing(button.isSelected());
-        img.setChecking(false);
+        map.setErasing(button.isSelected());
+        map.setChecking(false);
     }
 
     private void original()
     {
-        img.getLayoutParams().height = RelativeLayout.LayoutParams.WRAP_CONTENT;
-        img.requestLayout();
+        map.getLayoutParams().height = RelativeLayout.LayoutParams.WRAP_CONTENT;
+        map.requestLayout();
     }
 
     private void zoom()
     {
-        img.getLayoutParams().height = getParentHeight();
-        img.requestLayout();
+        map.getLayoutParams().height = getParentHeight();
+        map.requestLayout();
     }
 
     private void zoomIn()
     {
-        img.getLayoutParams().height = img.getLayoutHeight() + Tools.get().dpToPx(64, context);
-        img.requestLayout();
+        map.getLayoutParams().height = map.getLayoutHeight() + Tools.get().dpToPx(64, context);
+        map.requestLayout();
     }
 
     private void zoomOut()
     {
-        img.getLayoutParams().height = Math.max(
-            img.getLayoutHeight() - Tools.get().dpToPx(64, context),
+        map.getLayoutParams().height = Math.max(
+            map.getLayoutHeight() - Tools.get().dpToPx(64, context),
             getParentHeight());
-        img.requestLayout();
+        map.requestLayout();
     }
 
     private int getParentHeight()
     {
-        ScrollView parent = (ScrollView) img.getParent().getParent();
+        ScrollView parent = (ScrollView) map.getParent().getParent();
         return parent.getHeight();
     }
     

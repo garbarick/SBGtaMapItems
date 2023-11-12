@@ -10,6 +10,10 @@ public class Tools
 {
     private static final Tools instance = new Tools();
 
+    private Tools()
+    {
+    }
+
     public static Tools get()
     {
         return instance;

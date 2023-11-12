@@ -8,12 +8,15 @@ import android.view.*;
 import android.widget.*;
 import java.util.*;
 import ru.net.serbis.gtamapitems.data.*;
-import ru.net.serbis.gtamapitems.listener.*;
 import ru.net.serbis.gtamapitems.util.*;
 
 public class ImageViewExt extends ImageView implements View.OnTouchListener
 {
-    private CheckBoxes checkBoxes = new CheckBoxes();
+    public interface OnChangeCheckingListener
+    {
+        void onChangeChecking(ImageViewExt view)
+    }
+
     private List<Check> checks = new ArrayList<Check>();
     private boolean checking;
     private boolean erasing;
@@ -40,7 +43,6 @@ public class ImageViewExt extends ImageView implements View.OnTouchListener
     public ImageViewExt(Context context, AttributeSet attrs)
     {
         super(context, attrs);
-        checkBoxes.init(context);
         detector = new GestureDetector(context, new GestureListener());
         setOnTouchListener(this);
     }
@@ -73,7 +75,7 @@ public class ImageViewExt extends ImageView implements View.OnTouchListener
 
     public int getLayoutHeight()
     {
-        if (getLayoutParams().height == RelativeLayout.LayoutParams.WRAP_CONTENT)
+        if (getLayoutParams().height == ViewGroup.LayoutParams.WRAP_CONTENT)
         {
             return getDrawable().getIntrinsicHeight();
         }
@@ -91,7 +93,7 @@ public class ImageViewExt extends ImageView implements View.OnTouchListener
         int h = (int) (80 * scale);
         int x = (int) (check.x * scale - h/2) ;
         int y = (int) (check.y * scale - h/2);
-        Drawable item = checkBoxes.getItem(check.type);
+        Drawable item = CheckBoxes.get().getDrawable(check.type, getContext());
         item.setBounds(x, y, x + h, y + h);
         item.draw(canvas);
     }
@@ -163,7 +165,7 @@ public class ImageViewExt extends ImageView implements View.OnTouchListener
     {
         for (OnChangeCheckingListener listener : listeners)
         {
-            listener.onChange(this);
+            listener.onChangeChecking(this);
         }
     }
 }

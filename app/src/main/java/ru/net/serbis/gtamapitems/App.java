@@ -1,6 +1,7 @@
 package ru.net.serbis.gtamapitems;
 
 import android.app.*;
+import android.content.*;
 import ru.net.serbis.gtamapitems.handler.*;
 
 public class App extends Application
@@ -9,6 +10,7 @@ public class App extends Application
     public void onCreate()
     {
         super.onCreate();
-        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(getApplicationContext()));
+        Context context = getApplicationContext();
+        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(context));
     }
 }

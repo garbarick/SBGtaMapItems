@@ -3,14 +3,14 @@ package ru.net.serbis.gtamapitems.data;
 public class Resource
 {
     private String name;
-    private String nameId;
-    private int id;
+    private int nameId;
+    private int drawableId;
 
-    public Resource(String name, String nameId, int id)
+    public Resource(String name, int nameId, int drawableId)
     {
         this.name = name;
         this.nameId = nameId;
-        this.id = id;
+        this.drawableId = drawableId;
     }
 
     public String getName()
@@ -18,19 +18,13 @@ public class Resource
         return name;
     }
 
-    public String getNameId()
+    public int getNameId()
     {
         return nameId;
     }
 
-    public int getId()
+    public int getDrawableId()
     {
-        return id;
-    }
-
-    @Override
-    public String toString()
-    {
-        return name;
+        return drawableId;
     }
 }

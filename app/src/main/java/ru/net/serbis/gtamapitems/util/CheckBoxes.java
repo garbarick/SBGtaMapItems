@@ -1,47 +1,51 @@
 package ru.net.serbis.gtamapitems.util;
 
 import android.content.*;
+import android.graphics.*;
 import android.graphics.drawable.*;
-import java.lang.reflect.*;
 import java.util.*;
 import ru.net.serbis.gtamapitems.*;
-import ru.net.serbis.gtamapitems.data.*;
 
 public class CheckBoxes
 {
-    private List<Drawable> items = new ArrayList<Drawable>();
+    private static final CheckBoxes instance = new CheckBoxes();
 
-    public void init(Context context)
-    {
-        for(Field field : R.drawable.class.getFields())
-        {
-            if (field.getName().startsWith("check_box_"))
-            {
-                Drawable item = getDrawable(field, context);
-                if (item != null)
-                {
-                    items.add(item);
-                }
-            }
+    private List<Integer> items = Arrays.asList(
+        new Integer[]{
+            R.drawable.check_box_0,
+            R.drawable.check_box_1,
+            R.drawable.check_box_2,
+            R.drawable.check_box_3,
+            R.drawable.check_box_4
         }
+    );
+
+    private CheckBoxes()
+    {
     }
 
-    protected Drawable getDrawable(Field field, Context context)
+    public static CheckBoxes get()
     {
-        try
-        {
-            int id = field.get(null);
-            return context.getResources().getDrawable(id);
-        }
-        catch (Exception e)
-        {
-            Log.error(this, e);
-            return null;
-        }
+        return instance;
     }
 
-    public Drawable getItem(int type)
+    public int getDrawableId(int type)
     {
         return items.get(type);
+    }
+
+    public int size()
+    {
+        return items.size();
+    }
+
+    public Drawable getDrawable(int type, Context context)
+    {
+        return context.getResources().getDrawable(items.get(type));
+    }
+
+    public Bitmap getBitmap(int type, Context context)
+    {
+        return BitmapFactory.decodeResource(context.getResources(), items.get(type));
     }
 }

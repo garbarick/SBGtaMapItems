@@ -8,42 +8,42 @@ import ru.net.serbis.gtamapitems.data.*;
 
 public class Maps
 {
-    public List<Resource> getMaps(Context context)
-    {
-        List<Resource> result = new ArrayList<Resource>();
-        for(Field field : R.drawable.class.getFields())
-        {
-            if (field.getName().startsWith("map_"))
-            {
-                Resource resource = createResource(context, field);
-                if (resource != null)
-                {
-                    result.add(resource);
-                }
-            }
+    private static final Maps instance = new Maps();
+
+    private List<Resource> items = Arrays.asList(
+        new Resource[]{
+            new Resource("map_gta_3_jumps", R.string.map_gta_3_jumps, R.drawable.map_gta_3_jumps),
+            new Resource("map_gta_3_packages", R.string.map_gta_3_packages, R.drawable.map_gta_3_packages),
+            new Resource("map_gta_3_rampages", R.string.map_gta_3_rampages, R.drawable.map_gta_3_rampages),
+
+            new Resource("map_gta_lcs_portland_others", R.string.map_gta_lcs_portland_others, R.drawable.map_gta_lcs_portland_others),
+            new Resource("map_gta_lcs_portland_packages", R.string.map_gta_lcs_portland_packages, R.drawable.map_gta_lcs_portland_packages),
+            new Resource("map_gta_lcs_shoreside_others", R.string.map_gta_lcs_shoreside_others, R.drawable.map_gta_lcs_shoreside_others),
+            new Resource("map_gta_lcs_shoreside_packages", R.string.map_gta_lcs_shoreside_packages, R.drawable.map_gta_lcs_shoreside_packages),
+            new Resource("map_gta_lcs_staunton_others", R.string.map_gta_lcs_staunton_others, R.drawable.map_gta_lcs_staunton_others),
+            new Resource("map_gta_lcs_staunton_packages", R.string.map_gta_lcs_staunton_packages, R.drawable.map_gta_lcs_staunton_packages),
+
+            new Resource("map_gta_vc_jumps", R.string.map_gta_vc_jumps, R.drawable.map_gta_vc_jumps),
+            new Resource("map_gta_vc_packages", R.string.map_gta_vc_packages, R.drawable.map_gta_vc_packages),
+            new Resource("map_gta_vc_rampages", R.string.map_gta_vc_rampages, R.drawable.map_gta_vc_rampages),
+
+            new Resource("map_gta_vcs_balloons", R.string.map_gta_vcs_balloons, R.drawable.map_gta_vcs_balloons),
+            new Resource("map_gta_vcs_jumps", R.string.map_gta_vcs_jumps, R.drawable.map_gta_vcs_jumps),
+            new Resource("map_gta_vcs_rampages", R.string.map_gta_vcs_rampages, R.drawable.map_gta_vcs_rampages)
         }
-        return result;
+    );
+
+    private Maps()
+    {
     }
 
-    private Resource createResource(Context context, Field field)
+    public static Maps get()
     {
-        try
-        {
-            String resName = field.getName();
-            int nameId = getStringId(resName);
-            String name = context.getString(nameId);
-            int id = field.get(null);
-            return new Resource(name, resName, id);
-        }
-        catch (Exception e)
-        {
-            Log.error(this, e);
-            return null;
-        }
+        return instance;
     }
 
-    private int getStringId(String name) throws Exception
+    public List<Resource> getItems()
     {
-        return R.string.class.getField(name).get(null);
+        return items;
     }
 }

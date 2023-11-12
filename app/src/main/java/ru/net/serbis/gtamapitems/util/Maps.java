@@ -29,7 +29,9 @@ public class Maps
 
             new Resource("map_gta_vcs_balloons", R.string.map_gta_vcs_balloons, R.drawable.map_gta_vcs_balloons),
             new Resource("map_gta_vcs_jumps", R.string.map_gta_vcs_jumps, R.drawable.map_gta_vcs_jumps),
-            new Resource("map_gta_vcs_rampages", R.string.map_gta_vcs_rampages, R.drawable.map_gta_vcs_rampages)
+            new Resource("map_gta_vcs_rampages", R.string.map_gta_vcs_rampages, R.drawable.map_gta_vcs_rampages),
+            
+            new Resource("map_gta_ctw", R.string.map_gta_ctw, R.drawable.map_gta_ctw)
         }
     );
 

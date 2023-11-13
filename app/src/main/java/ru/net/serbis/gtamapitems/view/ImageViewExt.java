@@ -7,6 +7,7 @@ import android.util.*;
 import android.view.*;
 import android.widget.*;
 import java.util.*;
+import ru.net.serbis.gtamapitems.*;
 import ru.net.serbis.gtamapitems.data.*;
 import ru.net.serbis.gtamapitems.util.*;
 
@@ -23,6 +24,7 @@ public class ImageViewExt extends ImageView implements View.OnTouchListener
     private GestureDetector detector;
     private List<OnChangeCheckingListener> listeners = new ArrayList<OnChangeCheckingListener>();
     private int type;
+    private int checkSize;
 
     private class GestureListener extends GestureDetector.SimpleOnGestureListener
     {
@@ -45,6 +47,7 @@ public class ImageViewExt extends ImageView implements View.OnTouchListener
         super(context, attrs);
         detector = new GestureDetector(context, new GestureListener());
         setOnTouchListener(this);
+        checkSize = (int) context.getResources().getDimension(R.dimen.check_size);
     }
 
     public void setChecking(boolean checking)
@@ -90,12 +93,16 @@ public class ImageViewExt extends ImageView implements View.OnTouchListener
     private void drawCheck(Canvas canvas, Check check)
     {
         float scale = getScale();
-        int h = (int) (80 * scale);
+        int h = (int) (checkSize * scale);
         int x = (int) (check.x * scale - h/2) ;
         int y = (int) (check.y * scale - h/2);
         Drawable item = CheckBoxes.get().getDrawable(check.type, getContext());
-        item.setBounds(x, y, x + h, y + h);
+        item.setBounds(0, 0, checkSize, checkSize);
+        canvas.save();
+        canvas.translate(x, y);
+        canvas.scale(scale, scale);
         item.draw(canvas);
+        canvas.restore();
     }
 
     @Override

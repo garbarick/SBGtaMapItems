@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="check_boxes_popup_width">100dp</dimen>
+    <dimen name="check_size">20dp</dimen>
 </resources>

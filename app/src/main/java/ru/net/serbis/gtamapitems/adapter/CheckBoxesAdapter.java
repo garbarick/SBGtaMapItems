@@ -33,7 +33,7 @@ public class CheckBoxesAdapter extends ArrayAdapter<Holder<Integer>>
             view = LayoutInflater.from(getContext()).inflate(R.layout.image_item, parent, false);
         }
         ImageView img = Tools.get().findView(view, R.id.image);
-        img.setForeground(CheckBoxes.get().getDrawable(position, getContext()));
+        img.setImageResource(CheckBoxes.get().getDrawableId(position));
         TextView count = Tools.get().findView(view, R.id.count);
         count.setText(getItem(position).getValue().toString());
         return view;

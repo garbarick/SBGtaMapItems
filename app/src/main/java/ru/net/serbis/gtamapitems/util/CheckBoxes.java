@@ -1,7 +1,6 @@
 package ru.net.serbis.gtamapitems.util;
 
 import android.content.*;
-import android.graphics.*;
 import android.graphics.drawable.*;
 import java.util.*;
 import ru.net.serbis.gtamapitems.*;
@@ -41,11 +40,6 @@ public class CheckBoxes
 
     public Drawable getDrawable(int type, Context context)
     {
-        return context.getResources().getDrawable(items.get(type));
-    }
-
-    public Bitmap getBitmap(int type, Context context)
-    {
-        return BitmapFactory.decodeResource(context.getResources(), items.get(type));
+        return context.getResources().getDrawable(getDrawableId(type));
     }
 }

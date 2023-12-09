@@ -31,7 +31,14 @@ public class Maps
             new Resource("map_gta_vcs_jumps", R.string.map_gta_vcs_jumps, R.drawable.map_gta_vcs_jumps),
             new Resource("map_gta_vcs_rampages", R.string.map_gta_vcs_rampages, R.drawable.map_gta_vcs_rampages),
             
-            new Resource("map_gta_ctw", R.string.map_gta_ctw, R.drawable.map_gta_ctw)
+            new Resource("map_gta_ctw", R.string.map_gta_ctw, R.drawable.map_gta_ctw),
+
+            new Resource("map_gta_sindacco_chronicles_jumps", R.string.map_gta_sindacco_chronicles_jumps, R.drawable.map_gta_sindacco_chronicles_jumps),
+            new Resource("map_gta_sindacco_chronicles_missions", R.string.map_gta_sindacco_chronicles_missions, R.drawable.map_gta_sindacco_chronicles_missions),
+            new Resource("map_gta_sindacco_chronicles_packages", R.string.map_gta_sindacco_chronicles_packages, R.drawable.map_gta_sindacco_chronicles_packages),
+            new Resource("map_gta_sindacco_chronicles_properties", R.string.map_gta_sindacco_chronicles_properties, R.drawable.map_gta_sindacco_chronicles_properties),
+            new Resource("map_gta_sindacco_chronicles_rampages", R.string.map_gta_sindacco_chronicles_rampages, R.drawable.map_gta_sindacco_chronicles_rampages),
+            new Resource("map_gta_sindacco_chronicles_snapshots", R.string.map_gta_sindacco_chronicles_snapshots, R.drawable.map_gta_sindacco_chronicles_snapshots)
         }
     );
 

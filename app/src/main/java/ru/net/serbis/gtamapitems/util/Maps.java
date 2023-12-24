@@ -38,7 +38,12 @@ public class Maps
             new Resource("map_gta_sindacco_chronicles_packages", R.string.map_gta_sindacco_chronicles_packages, R.drawable.map_gta_sindacco_chronicles_packages),
             new Resource("map_gta_sindacco_chronicles_properties", R.string.map_gta_sindacco_chronicles_properties, R.drawable.map_gta_sindacco_chronicles_properties),
             new Resource("map_gta_sindacco_chronicles_rampages", R.string.map_gta_sindacco_chronicles_rampages, R.drawable.map_gta_sindacco_chronicles_rampages),
-            new Resource("map_gta_sindacco_chronicles_snapshots", R.string.map_gta_sindacco_chronicles_snapshots, R.drawable.map_gta_sindacco_chronicles_snapshots)
+            new Resource("map_gta_sindacco_chronicles_snapshots", R.string.map_gta_sindacco_chronicles_snapshots, R.drawable.map_gta_sindacco_chronicles_snapshots),
+            
+            new Resource("map_gta_forelli_redemption_jumps", R.string.map_gta_forelli_redemption_jumps, R.drawable.map_gta_forelli_redemption_jumps),
+            new Resource("map_gta_forelli_redemption_missions", R.string.map_gta_forelli_redemption_missions, R.drawable.map_gta_forelli_redemption_missions),
+            new Resource("map_gta_forelli_redemption_packages", R.string.map_gta_forelli_redemption_packages, R.drawable.map_gta_forelli_redemption_packages),
+            new Resource("map_gta_forelli_redemption_rampages", R.string.map_gta_forelli_redemption_rampages, R.drawable.map_gta_forelli_redemption_rampages)
         }
     );
 

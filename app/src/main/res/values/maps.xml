@@ -22,4 +22,8 @@
     <string name="map_gta_sindacco_chronicles_properties">(GTA SC) properties</string>
     <string name="map_gta_sindacco_chronicles_snapshots">(GTA SC) snapshots</string>
     <string name="map_gta_sindacco_chronicles_rampages">(GTA SC) rampages</string>
+    <string name="map_gta_forelli_redemption_jumps">(GTA FR) jumps</string>
+    <string name="map_gta_forelli_redemption_missions">(GTA FR) missions</string>
+    <string name="map_gta_forelli_redemption_packages">(GTA FR) packages</string>
+    <string name="map_gta_forelli_redemption_rampages">(GTA FR) rampages</string>
 </resources>

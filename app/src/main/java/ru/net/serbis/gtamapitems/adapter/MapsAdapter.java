@@ -7,14 +7,14 @@ import android.widget.*;
 import ru.net.serbis.gtamapitems.data.*;
 import ru.net.serbis.gtamapitems.util.*;
 
-public class MapsAdapter extends ArrayAdapter<Resource>
+public class MapsAdapter extends ArrayAdapter<Map>
 {
     public MapsAdapter(Context context)
     {
         super(
             context,
             R.layout.simple_spinner_item,
-            Maps.get().getItems());
+            Maps.get().getItems(context));
     }
 
     @Override
@@ -24,9 +24,9 @@ public class MapsAdapter extends ArrayAdapter<Resource>
         {
             view = LayoutInflater.from(getContext()).inflate(R.layout.simple_spinner_item, parent, false);
         }
-        Resource resource = getItem(position);
+        Map map = getItem(position);
         TextView text = Tools.get().findView(view, R.id.text1);
-        text.setText(resource.getNameId());
+        text.setText(map.getName(getContext()));
         return view;
     }
 

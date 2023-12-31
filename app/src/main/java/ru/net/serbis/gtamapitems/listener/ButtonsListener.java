@@ -11,13 +11,13 @@ import ru.net.serbis.gtamapitems.view.*;
 public class ButtonsListener implements View.OnClickListener, CheckBoxesPopup.OnChangeCheckTypeListener
 {
     private Activity context;
-    private ImageViewExt map;
+    private ImageViewExt imageMap;
     private CheckBoxesPopup popup;
 
     public ButtonsListener(Activity context)
     {
         this.context = context;
-        map = Tools.get().findView(context, R.id.map);
+        imageMap = Tools.get().findView(context, R.id.map);
         initButtons();
         initPopup();
     }
@@ -30,6 +30,7 @@ public class ButtonsListener implements View.OnClickListener, CheckBoxesPopup.On
         initButton(R.id.zoom);
         initButton(R.id.zoom_in);
         initButton(R.id.zoom_out);
+        initButton(R.id.clear);
     }
 
     private void initButton(int id)
@@ -67,6 +68,9 @@ public class ButtonsListener implements View.OnClickListener, CheckBoxesPopup.On
             case R.id.zoom_out:
                 zoomOut();
                 break;
+            case R.id.clear:
+                imageMap.clear();
+                break;
         }
     }
 
@@ -75,11 +79,11 @@ public class ButtonsListener implements View.OnClickListener, CheckBoxesPopup.On
         if (button.isSelected())
         {
             button.setSelected(false);
-            map.setChecking(false);
+            imageMap.setChecking(false);
         }
         else
         {
-            popup.updateCounts(map.getChecks());
+            popup.updateCounts(imageMap.getChecks());
             popup.show(button);
         }
     }
@@ -90,48 +94,48 @@ public class ButtonsListener implements View.OnClickListener, CheckBoxesPopup.On
         ImageButton button = Tools.get().findView(context, R.id.check);
         button.setSelected(true);
         selectButton(R.id.erase, false);
-        map.setChecking(true);
-        map.setErasing(false);
-        map.setType(type);
+        imageMap.setChecking(true);
+        imageMap.setErasing(false);
+        imageMap.setType(type);
     }
 
     private void erase(ImageButton button)
     {
         button.setSelected(!button.isSelected());
         selectButton(R.id.check, false);
-        map.setErasing(button.isSelected());
-        map.setChecking(false);
+        imageMap.setErasing(button.isSelected());
+        imageMap.setChecking(false);
     }
 
     private void original()
     {
-        map.getLayoutParams().height = RelativeLayout.LayoutParams.WRAP_CONTENT;
-        map.requestLayout();
+        imageMap.getLayoutParams().height = RelativeLayout.LayoutParams.WRAP_CONTENT;
+        imageMap.requestLayout();
     }
 
     private void zoom()
     {
-        map.getLayoutParams().height = getParentHeight();
-        map.requestLayout();
+        imageMap.getLayoutParams().height = getParentHeight();
+        imageMap.requestLayout();
     }
 
     private void zoomIn()
     {
-        map.getLayoutParams().height = map.getLayoutHeight() + Tools.get().dpToPx(64, context);
-        map.requestLayout();
+        imageMap.getLayoutParams().height = imageMap.getLayoutHeight() + Tools.get().dpToPx(64, context);
+        imageMap.requestLayout();
     }
 
     private void zoomOut()
     {
-        map.getLayoutParams().height = Math.max(
-            map.getLayoutHeight() - Tools.get().dpToPx(64, context),
+        imageMap.getLayoutParams().height = Math.max(
+            imageMap.getLayoutHeight() - Tools.get().dpToPx(64, context),
             getParentHeight());
-        map.requestLayout();
+        imageMap.requestLayout();
     }
 
     private int getParentHeight()
     {
-        ScrollView parent = (ScrollView) map.getParent().getParent();
+        ScrollView parent = (ScrollView) imageMap.getParent().getParent();
         return parent.getHeight();
     }
     

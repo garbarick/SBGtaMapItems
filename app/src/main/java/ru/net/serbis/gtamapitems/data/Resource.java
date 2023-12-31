@@ -2,20 +2,20 @@ package ru.net.serbis.gtamapitems.data;
 
 public class Resource
 {
-    private String name;
-    private int nameId;
-    private int drawableId;
+    protected String key;
+    protected int nameId;
+    protected int drawableId;
 
-    public Resource(String name, int nameId, int drawableId)
+    public Resource(String key, int nameId, int drawableId)
     {
-        this.name = name;
+        this.key = key;
         this.nameId = nameId;
         this.drawableId = drawableId;
     }
 
-    public String getName()
+    public String getKey()
     {
-        return name;
+        return key;
     }
 
     public int getNameId()

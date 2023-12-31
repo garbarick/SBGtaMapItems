@@ -50,16 +50,16 @@ public class Main extends Activity implements ImageViewExt.OnChangeCheckingListe
         maps.setAdapter(adapter);
         maps.setOnItemSelectedListener(new MapSelectListener(this, adapter));
 
-        String mapId = Tools.get().getPreferences(this).getString(Constants.LAST_MAP, "");
-        initCurrent(mapId);
+        String mapKey = Tools.get().getPreferences(this).getString(Constants.LAST_MAP, "");
+        initCurrent(mapKey);
     }
 
-    private void initCurrent(String mapId)
+    private void initCurrent(String mapKey)
     {
         for (int i = 0; i < adapter.getCount(); i++)
         {
-            Resource resource = adapter.getItem(i);
-            if (mapId.equals(resource.getName()))
+            Map map = adapter.getItem(i);
+            if (mapKey.equals(map.getKey()))
             {
                 maps.setSelection(i);
                 break;
@@ -70,11 +70,12 @@ public class Main extends Activity implements ImageViewExt.OnChangeCheckingListe
     @Override
     public void onChangeChecking(ImageViewExt view)
     {
-        Resource resource = adapter.getItem(maps.getSelectedItemPosition());
-        String mapId = resource.getName();
+        Map map = adapter.getItem(maps.getSelectedItemPosition());
+        map.setChecks(view.getChecks());
         String value = new JsonTools().toJson(view.getChecks());
         SharedPreferences.Editor editor = Tools.get().getPreferencesEditor(this);
-        editor.putString(mapId, value);
+        editor.putString(map.getKey(), value);
         editor.commit();
+        adapter.notifyDataSetChanged();
     }
 }

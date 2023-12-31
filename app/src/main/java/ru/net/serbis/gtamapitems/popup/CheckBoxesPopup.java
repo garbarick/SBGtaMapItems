@@ -7,40 +7,25 @@ import java.util.*;
 import ru.net.serbis.gtamapitems.*;
 import ru.net.serbis.gtamapitems.adapter.*;
 import ru.net.serbis.gtamapitems.data.*;
-import ru.net.serbis.gtamapitems.util.*;
 
-public class CheckBoxesPopup extends PopupWindow implements AdapterView.OnItemClickListener
+public class CheckBoxesPopup extends ListViewPopup<CheckBoxesAdapter>
 {
     public interface OnChangeCheckTypeListener
     {
         void onChangeCheckType(int type)
     }
 
-    protected Context context;
     protected List<OnChangeCheckTypeListener> listeners = new ArrayList<OnChangeCheckTypeListener>();
-    protected CheckBoxesAdapter adapter;
 
     public CheckBoxesPopup(Context context)
     {
-        super(
-            LayoutInflater.from(context).inflate(R.layout.list, null),
-            (int) context.getResources().getDimension(R.dimen.check_boxes_popup_width),
-            ViewGroup.LayoutParams.WRAP_CONTENT);
-
-        this.context = context;
-        setOutsideTouchable(true);
-
-        View view = getContentView();
-
-        ListView list = Tools.get().findView(view, R.id.list);
-        adapter = new CheckBoxesAdapter(context);
-        list.setAdapter(adapter);
-        list.setOnItemClickListener(this);
+        super(context, R.layout.list, R.dimen.check_boxes_popup_width);
     }
 
-    public void show(View anchor)
+    @Override
+    protected CheckBoxesAdapter createAdapter()
     {
-        showAsDropDown(anchor);
+        return new CheckBoxesAdapter(context);
     }
 
     public void setOnChangeCheckTypeListener(OnChangeCheckTypeListener listener)

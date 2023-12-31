@@ -175,4 +175,11 @@ public class ImageViewExt extends ImageView implements View.OnTouchListener
             listener.onChangeChecking(this);
         }
     }
+
+    public void clear()
+    {
+        checks.clear();
+        invalidate();
+        changeChecking();
+    }
 }

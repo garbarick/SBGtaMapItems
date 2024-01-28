@@ -2,4 +2,6 @@
 <resources>
     <string name="app">SBGtaMapItems</string>
     <string name="uncaught_exception">Uncaught exception</string>
+    <string name="confirmation">Confirmation</string>
+    <string name="clean_up_all_items">Clean up all items?</string>
 </resources>

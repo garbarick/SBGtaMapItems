@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Map extends Resource
 {
-    private List<Check> checks;
+    private List<Check> checks = new ArrayList<Check>();
 
     public Map(String name, int nameId, int drawableId)
     {
@@ -14,7 +14,8 @@ public class Map extends Resource
 
     public void setChecks(List<Check> checks)
     {
-        this.checks = checks;
+        this.checks.clear();
+        this.checks.addAll(checks);
     }
 
     public List<Check> getChecks()

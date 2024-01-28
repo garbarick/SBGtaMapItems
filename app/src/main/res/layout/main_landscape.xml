@@ -74,7 +74,7 @@
                 android:src="@drawable/clear"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/clear"
+                android:id="@+id/clean_up"
                 android:layout_weight="1"
 				android:scaleType="centerInside"/>
 

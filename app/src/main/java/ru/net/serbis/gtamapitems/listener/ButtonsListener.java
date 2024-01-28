@@ -7,6 +7,7 @@ import ru.net.serbis.gtamapitems.*;
 import ru.net.serbis.gtamapitems.popup.*;
 import ru.net.serbis.gtamapitems.util.*;
 import ru.net.serbis.gtamapitems.view.*;
+import ru.net.serbis.gtamapitems.dialog.*;
 
 public class ButtonsListener implements View.OnClickListener, CheckBoxesPopup.OnChangeCheckTypeListener
 {
@@ -30,7 +31,7 @@ public class ButtonsListener implements View.OnClickListener, CheckBoxesPopup.On
         initButton(R.id.zoom);
         initButton(R.id.zoom_in);
         initButton(R.id.zoom_out);
-        initButton(R.id.clear);
+        initButton(R.id.clean_up);
     }
 
     private void initButton(int id)
@@ -68,8 +69,8 @@ public class ButtonsListener implements View.OnClickListener, CheckBoxesPopup.On
             case R.id.zoom_out:
                 zoomOut();
                 break;
-            case R.id.clear:
-                imageMap.clear();
+            case R.id.clean_up:
+                cleanUp();
                 break;
         }
     }
@@ -143,5 +144,17 @@ public class ButtonsListener implements View.OnClickListener, CheckBoxesPopup.On
     {
         ImageButton button = Tools.get().findView(context, id);
         button.setSelected(selected);
+    }
+
+    private void cleanUp()
+    {
+        new Confirm(context, R.string.clean_up_all_items)
+        {
+            @Override
+            protected void onOk()
+            {
+                imageMap.clear();
+            }
+        };
     }
 }

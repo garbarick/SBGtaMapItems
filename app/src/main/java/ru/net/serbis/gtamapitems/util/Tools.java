@@ -29,12 +29,6 @@ public class Tools
         return (T) view.findViewById(id);
     }
 
-    public int dpToPx(int dp, Context context)
-    {
-        float density = context.getResources().getDisplayMetrics().density;
-        return Math.round((float) dp * density);
-    }
-
     public String errorToText(Throwable error)
     {
         StringWriter writer = new StringWriter();

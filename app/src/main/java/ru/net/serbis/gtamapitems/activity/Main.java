@@ -4,6 +4,7 @@ import android.app.*;
 import android.content.*;
 import android.content.res.*;
 import android.os.*;
+import android.view.*;
 import android.widget.*;
 import ru.net.serbis.gtamapitems.*;
 import ru.net.serbis.gtamapitems.adapter.*;
@@ -12,7 +13,7 @@ import ru.net.serbis.gtamapitems.listener.*;
 import ru.net.serbis.gtamapitems.util.*;
 import ru.net.serbis.gtamapitems.view.*;
 
-public class Main extends Activity implements ImageViewExt.OnChangeCheckingListener
+public class Main extends Activity implements ImageMap.OnChangeCheckingListener
 {
     private Spinner maps;
     private MapsAdapter adapter;
@@ -32,6 +33,7 @@ public class Main extends Activity implements ImageViewExt.OnChangeCheckingListe
     {
         if (Configuration.ORIENTATION_LANDSCAPE == getResources().getConfiguration().orientation)
         {
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
             return R.layout.main_landscape;
         }
         return R.layout.main_portrait;
@@ -39,7 +41,7 @@ public class Main extends Activity implements ImageViewExt.OnChangeCheckingListe
 
     private void initMap()
     {
-        ImageViewExt map = Tools.get().findView(this, R.id.map);
+        ImageMap map = Tools.get().findView(this, R.id.map);
         map.setOnChangeCheckingListener(this);
     }
 
@@ -68,7 +70,7 @@ public class Main extends Activity implements ImageViewExt.OnChangeCheckingListe
     }
 
     @Override
-    public void onChangeChecking(ImageViewExt view)
+    public void onChangeChecking(ImageMap view)
     {
         Map map = adapter.getItem(maps.getSelectedItemPosition());
         map.setChecks(view.getChecks());

@@ -11,11 +11,11 @@ import ru.net.serbis.gtamapitems.*;
 import ru.net.serbis.gtamapitems.data.*;
 import ru.net.serbis.gtamapitems.util.*;
 
-public class ImageViewExt extends ImageView implements View.OnTouchListener
+public class ImageMap extends ImageView implements View.OnTouchListener
 {
     public interface OnChangeCheckingListener
     {
-        void onChangeChecking(ImageViewExt view)
+        void onChangeChecking(ImageMap view)
     }
 
     private List<Check> checks = new ArrayList<Check>();
@@ -25,6 +25,7 @@ public class ImageViewExt extends ImageView implements View.OnTouchListener
     private List<OnChangeCheckingListener> listeners = new ArrayList<OnChangeCheckingListener>();
     private int type;
     private int checkSize;
+    private MatrixState state;
 
     private class GestureListener extends GestureDetector.SimpleOnGestureListener
     {
@@ -41,12 +42,14 @@ public class ImageViewExt extends ImageView implements View.OnTouchListener
             return false;
         }
     }
-    
-    public ImageViewExt(Context context, AttributeSet attrs)
+
+    public ImageMap(Context context, AttributeSet attrs)
     {
         super(context, attrs);
         detector = new GestureDetector(context, new GestureListener());
         setOnTouchListener(this);
+        setScaleType(ScaleType.MATRIX);
+        state = new MatrixState(this);
         checkSize = (int) context.getResources().getDimension(R.dimen.check_size);
     }
 
@@ -59,7 +62,7 @@ public class ImageViewExt extends ImageView implements View.OnTouchListener
     {
         this.erasing = erasing;
     }
-    
+
     public void setType(int type)
     {
         this.type = type;
@@ -76,26 +79,14 @@ public class ImageViewExt extends ImageView implements View.OnTouchListener
         }
     }
 
-    public int getLayoutHeight()
-    {
-        if (getLayoutParams().height == ViewGroup.LayoutParams.WRAP_CONTENT)
-        {
-            return getDrawable().getIntrinsicHeight();
-        }
-        return getLayoutParams().height;
-    }
-
-    private float getScale()
-    {
-        return getLayoutHeight() * 1f / getDrawable().getIntrinsicHeight();
-    }
-
     private void drawCheck(Canvas canvas, Check check)
     {
-        float scale = getScale();
+        float scale = state.getScale();
+        PointF pos = state.getPosition();
+
         int h = (int) (checkSize * scale);
-        int x = (int) (check.x * scale - h/2) ;
-        int y = (int) (check.y * scale - h/2);
+        int x = (int) (check.x * scale - h / 2 + pos.x);
+        int y = (int) (check.y * scale - h / 2 + pos.y);
         Drawable item = CheckBoxes.get().getDrawable(check.type, getContext());
         item.setBounds(0, 0, checkSize, checkSize);
         canvas.save();
@@ -108,18 +99,39 @@ public class ImageViewExt extends ImageView implements View.OnTouchListener
     @Override
     public boolean onTouch(View view, MotionEvent event)
     {
-        if (!checking && !erasing)
+        if (checking || erasing)
         {
-            return false;
+            return detector.onTouchEvent(event);
         }
-        return detector.onTouchEvent(event);
+        switch (event.getAction() & MotionEvent.ACTION_MASK)
+        {
+            case MotionEvent.ACTION_DOWN:
+                state.startMove(event);
+                break;
+            case MotionEvent.ACTION_POINTER_DOWN:
+                state.startZoom(event);
+                break;
+            case MotionEvent.ACTION_UP:
+                state.cancel();
+                break;
+            case MotionEvent.ACTION_POINTER_UP:
+                break;
+            case MotionEvent.ACTION_MOVE:
+                state.endMove(event);
+                state.endZoom(event);
+                break;
+        }
+        state.apply();
+        return true;
     }
 
     private void changeChecking(MotionEvent event)
     {
-        float scale = getScale();
-        int x = (int) (event.getX() / scale);
-        int y = (int) (event.getY() / scale);
+        float scale = state.getScale();
+        PointF pos = state.getPosition();
+
+        int x = (int) ((event.getX() - pos.x) / scale);
+        int y = (int) ((event.getY() - pos.y) / scale);
 
         if (checking)
         {
@@ -143,8 +155,8 @@ public class ImageViewExt extends ImageView implements View.OnTouchListener
         for (Check check : checks)
         {
             if (Math.max(
-                Math.abs(check.x - x),
-                Math.abs(check.y - y)) < 50)
+                    Math.abs(check.x - x),
+                    Math.abs(check.y - y)) < 50)
             {
                 return check;
             }
@@ -181,5 +193,35 @@ public class ImageViewExt extends ImageView implements View.OnTouchListener
         checks.clear();
         invalidate();
         changeChecking();
+    }
+
+    public ViewGroup parent()
+    {
+        return (ViewGroup) getParent();
+    }
+
+    public void reset()
+    {
+        state.reset();
+    }
+
+    public void fitWidth()
+    {
+        state.fitWidth();
+        PointF pos = state.getPosition();
+        state.translate(- pos.x, - pos.y);
+        state.apply();
+    }
+
+    public void zoomIn()
+    {
+        state.setScale(1.1f, 1.1f, 0, 0);
+        state.apply();
+    }
+
+    public void zoomOut()
+    {
+        state.setScale(0.9f, 0.9f, 0, 0);
+        state.apply();
     }
 }

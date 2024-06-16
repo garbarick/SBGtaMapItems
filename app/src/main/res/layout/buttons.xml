@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:id="@+id/buttons">
+
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:scaleType="centerInside"
+        android:src="@drawable/original"
+        android:id="@+id/original"/>
+
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:scaleType="centerInside"
+        android:src="@drawable/zoom"
+        android:id="@+id/zoom"/>
+
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:scaleType="centerInside"
+        android:src="@drawable/zoom_in"
+        android:id="@+id/zoom_in"/>
+
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:scaleType="centerInside"
+        android:src="@drawable/zoom_out"
+        android:id="@+id/zoom_out"/>
+
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:scaleType="centerInside"
+        android:src="@drawable/check_selector"
+        android:id="@+id/check"/>
+
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:scaleType="centerInside"
+        android:src="@drawable/erase_selector"
+        android:id="@+id/erase"/>
+
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:scaleType="centerInside"
+        android:src="@drawable/clear"
+        android:id="@+id/clean_up"/>
+
+</GridLayout>
+

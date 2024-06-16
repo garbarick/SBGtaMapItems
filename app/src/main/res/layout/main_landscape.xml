@@ -16,90 +16,27 @@
 			android:layout_height="match_parent"
 			android:layout_weight="1"/>
 
-		<LinearLayout
-			android:orientation="horizontal"
+		<ru.net.serbis.gtamapitems.view.ButtonsView
 			android:layout_width="match_parent"
-			android:layout_height="42dp"
-			android:layout_weight="1">
-
-			<ImageButton
-				android:src="@drawable/original"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:id="@+id/original"
-				android:layout_weight="1"
-				android:scaleType="centerInside"/>
-
-			<ImageButton
-				android:src="@drawable/zoom"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:id="@+id/zoom"
-				android:layout_weight="1"
-				android:scaleType="centerInside"/>
-
-			<ImageButton
-				android:src="@drawable/zoom_in"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:id="@+id/zoom_in"
-				android:layout_weight="1"
-				android:scaleType="centerInside"/>
-
-			<ImageButton
-				android:src="@drawable/zoom_out"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:id="@+id/zoom_out"
-				android:layout_weight="1"
-				android:scaleType="centerInside"/>
-
-			<ImageButton
-				android:src="@drawable/check_selector"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:id="@+id/check"
-				android:layout_weight="1"
-				android:scaleType="centerInside"/>
-
-			<ImageButton
-				android:src="@drawable/erase_selector"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:id="@+id/erase"
-				android:layout_weight="1"
-				android:scaleType="centerInside"/>
-
-            <ImageButton
-                android:src="@drawable/clear"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/clean_up"
-                android:layout_weight="1"
-				android:scaleType="centerInside"/>
-
-		</LinearLayout>
+			android:layout_height="50dp"
+			android:layout_weight="1"
+			android:columnCount="7"
+			android:layout="@layout/buttons"/>
 
 	</LinearLayout>
 
-	<ScrollView
+	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:layout_weight="1">
 
-		<HorizontalScrollView
+		<ru.net.serbis.gtamapitems.view.ImageMap
+			android:adjustViewBounds="true"
+			android:layout_height="match_parent"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent">
+			android:id="@+id/map"/>
 
-			<ru.net.serbis.gtamapitems.view.ImageViewExt
-				android:adjustViewBounds="true"
-				android:layout_height="wrap_content"
-				android:layout_width="wrap_content"
-				android:id="@+id/map"/>
-
-		</HorizontalScrollView>
-
-	</ScrollView>
+	</LinearLayout>
 
 </LinearLayout>
 

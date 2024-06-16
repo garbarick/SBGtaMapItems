@@ -4,15 +4,15 @@ import android.app.*;
 import android.view.*;
 import android.widget.*;
 import ru.net.serbis.gtamapitems.*;
+import ru.net.serbis.gtamapitems.dialog.*;
 import ru.net.serbis.gtamapitems.popup.*;
 import ru.net.serbis.gtamapitems.util.*;
 import ru.net.serbis.gtamapitems.view.*;
-import ru.net.serbis.gtamapitems.dialog.*;
 
 public class ButtonsListener implements View.OnClickListener, CheckBoxesPopup.OnChangeCheckTypeListener
 {
     private Activity context;
-    private ImageViewExt imageMap;
+    private ImageMap imageMap;
     private CheckBoxesPopup popup;
 
     public ButtonsListener(Activity context)
@@ -110,36 +110,24 @@ public class ButtonsListener implements View.OnClickListener, CheckBoxesPopup.On
 
     private void original()
     {
-        imageMap.getLayoutParams().height = RelativeLayout.LayoutParams.WRAP_CONTENT;
-        imageMap.requestLayout();
+        imageMap.reset();
     }
 
     private void zoom()
     {
-        imageMap.getLayoutParams().height = getParentHeight();
-        imageMap.requestLayout();
+        imageMap.fitWidth();
     }
 
     private void zoomIn()
     {
-        imageMap.getLayoutParams().height = imageMap.getLayoutHeight() + Tools.get().dpToPx(64, context);
-        imageMap.requestLayout();
+        imageMap.zoomIn();
     }
 
     private void zoomOut()
     {
-        imageMap.getLayoutParams().height = Math.max(
-            imageMap.getLayoutHeight() - Tools.get().dpToPx(64, context),
-            getParentHeight());
-        imageMap.requestLayout();
+        imageMap.zoomOut();
     }
 
-    private int getParentHeight()
-    {
-        ScrollView parent = (ScrollView) imageMap.getParent().getParent();
-        return parent.getHeight();
-    }
-    
     private void selectButton(int id, boolean selected)
     {
         ImageButton button = Tools.get().findView(context, id);

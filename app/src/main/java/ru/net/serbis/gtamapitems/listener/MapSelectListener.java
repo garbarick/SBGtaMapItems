@@ -14,7 +14,7 @@ public class MapSelectListener implements AdapterView.OnItemSelectedListener
 {
     private Activity context;
     private MapsAdapter adapter;
-    private ImageViewExt imageMap;
+    private ImageMap imageMap;
 
     public MapSelectListener(Activity context, MapsAdapter adapter)
     {
@@ -29,6 +29,7 @@ public class MapSelectListener implements AdapterView.OnItemSelectedListener
         Map map = adapter.getItem(pos);
         imageMap.setImageResource(map.getDrawableId());
         imageMap.setChecks(map.getChecks());
+        imageMap.reset();
 
         SharedPreferences.Editor editor = Tools.get().getPreferencesEditor(context);
         editor.putString(Constants.LAST_MAP, map.getKey());

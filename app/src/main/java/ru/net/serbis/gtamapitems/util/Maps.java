@@ -40,11 +40,17 @@ public class Maps
             new Map("map_gta_sindacco_chronicles_properties", R.string.map_gta_sindacco_chronicles_properties, R.drawable.map_gta_sindacco_chronicles_properties),
             new Map("map_gta_sindacco_chronicles_rampages", R.string.map_gta_sindacco_chronicles_rampages, R.drawable.map_gta_sindacco_chronicles_rampages),
             new Map("map_gta_sindacco_chronicles_snapshots", R.string.map_gta_sindacco_chronicles_snapshots, R.drawable.map_gta_sindacco_chronicles_snapshots),
-            
+
             new Map("map_gta_forelli_redemption_jumps", R.string.map_gta_forelli_redemption_jumps, R.drawable.map_gta_forelli_redemption_jumps),
             new Map("map_gta_forelli_redemption_missions", R.string.map_gta_forelli_redemption_missions, R.drawable.map_gta_forelli_redemption_missions),
             new Map("map_gta_forelli_redemption_packages", R.string.map_gta_forelli_redemption_packages, R.drawable.map_gta_forelli_redemption_packages),
-            new Map("map_gta_forelli_redemption_rampages", R.string.map_gta_forelli_redemption_rampages, R.drawable.map_gta_forelli_redemption_rampages)
+            new Map("map_gta_forelli_redemption_rampages", R.string.map_gta_forelli_redemption_rampages, R.drawable.map_gta_forelli_redemption_rampages),
+
+            new Map("map_gta_sa_spray_tags", R.string.map_gta_sa_spray_tags, R.drawable.map_gta_sa_spray_tags),
+            new Map("map_gta_sa_snapshots", R.string.map_gta_sa_snapshots, R.drawable.map_gta_sa_snapshots),
+            new Map("map_gta_sa_horseshoes", R.string.map_gta_sa_horseshoes, R.drawable.map_gta_sa_horseshoes),
+            new Map("map_gta_sa_oysters", R.string.map_gta_sa_oysters, R.drawable.map_gta_sa_oysters),
+            new Map("map_gta_sa_import_export", R.string.map_gta_sa_import_export, R.drawable.map_gta_sa_import_export)
         }
     );
 

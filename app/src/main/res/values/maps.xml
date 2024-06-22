@@ -26,4 +26,9 @@
     <string name="map_gta_forelli_redemption_missions">(GTA FR) missions</string>
     <string name="map_gta_forelli_redemption_packages">(GTA FR) packages</string>
     <string name="map_gta_forelli_redemption_rampages">(GTA FR) rampages</string>
+    <string name="map_gta_sa_spray_tags">(GTA SA) spray tags</string>
+    <string name="map_gta_sa_snapshots">(GTA SA) snapshots</string>
+    <string name="map_gta_sa_horseshoes">(GTA SA) horseshoes</string>
+    <string name="map_gta_sa_oysters">(GTA SA) oysters</string>
+    <string name="map_gta_sa_import_export">(GTA SA) import, export</string>
 </resources>

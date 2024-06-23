@@ -14,7 +14,7 @@ public class MapsAdapter extends ArrayAdapter<Map>
         super(
             context,
             R.layout.simple_spinner_item,
-            Maps.get().getItems(context));
+            Maps.get().getItems());
     }
 
     @Override

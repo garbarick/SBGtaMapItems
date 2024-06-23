@@ -1,6 +1,5 @@
 package ru.net.serbis.gtamapitems.util;
 
-import android.content.*;
 import java.util.*;
 import ru.net.serbis.gtamapitems.*;
 import ru.net.serbis.gtamapitems.data.*;
@@ -63,12 +62,15 @@ public class Maps
         return instance;
     }
 
-    public List<Map> getItems(Context context)
+    public List<Map> getItems()
     {
         for (Map map : items)
         {
-            String value = Tools.get().getPreferences(context).getString(map.getKey(), "[]");
-            map.setChecks(new JsonTools().parseChecks(value));
+            String checks = Preferences.get().getString(map.getKey(), "[]");
+            map.setChecks(new JsonTools().parseChecks(checks));
+
+            String values = Preferences.get().getString(map.getKeyValues(), "[]");
+            map.setValues(new JsonTools().parseValues(values));
         }
         return items;
     }

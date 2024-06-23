@@ -8,7 +8,7 @@ public class JsonTools
 {
     public String toJson(List<Check> checks)
     {
-        JSONArray items = new JSONArray();
+        JSONArray result = new JSONArray();
         try
         {
             for (Check check : checks)
@@ -17,14 +17,14 @@ public class JsonTools
                 item.put("x", check.x);
                 item.put("y", check.y);
                 item.put("t", check.type);
-                items.put(item);
+                result.put(item);
             }
         }
         catch (Exception e)
         {
             Log.error(this, e);
         }
-        return items.toString();
+        return result.toString();
     }
 
     public List<Check> parseChecks(String json)
@@ -50,5 +50,45 @@ public class JsonTools
     private int getInt(JSONObject item, String key) throws Exception
     {
         return item.has(key) ? item.getInt(key) : 0;
+    }
+
+    public String toJson(float[] data)
+    {
+        JSONArray result = new JSONArray();
+        try
+        {
+            for (float i : data)
+            {
+                result.put(i);
+            }
+        }
+        catch (JSONException e)
+        {
+            Log.error(this, e);
+        }
+        return result.toString();
+    }
+
+    public float[] parseValues(String data)
+    {
+        float[] result = null;
+        try
+        {
+            JSONArray items = new JSONArray(data);
+            if (items.length() > 0)
+            {
+                result = new float[items.length()];
+                for (int i = 0; i < items.length(); i++)
+                {
+                    Double value = items.getDouble(i);
+                    result[i] = value.floatValue();
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Log.error(this, e);
+        }
+        return result;
     }
 }

@@ -110,7 +110,7 @@ public class ButtonsListener implements View.OnClickListener, CheckBoxesPopup.On
 
     private void original()
     {
-        imageMap.reset();
+        imageMap.reset(true);
     }
 
     private void zoom()

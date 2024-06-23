@@ -3,13 +3,13 @@ package ru.net.serbis.gtamapitems.data;
 public class Resource
 {
     protected String key;
-    protected int nameId;
+    protected int id;
     protected int drawableId;
 
-    public Resource(String key, int nameId, int drawableId)
+    public Resource(String key, int id, int drawableId)
     {
         this.key = key;
-        this.nameId = nameId;
+        this.id = id;
         this.drawableId = drawableId;
     }
 
@@ -18,13 +18,18 @@ public class Resource
         return key;
     }
 
-    public int getNameId()
+    public int getId()
     {
-        return nameId;
+        return id;
     }
 
     public int getDrawableId()
     {
         return drawableId;
+    }
+
+    public String getKeyValues()
+    {
+        return key + "#values";
     }
 }

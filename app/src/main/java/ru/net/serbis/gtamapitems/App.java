@@ -3,6 +3,7 @@ package ru.net.serbis.gtamapitems;
 import android.app.*;
 import android.content.*;
 import ru.net.serbis.gtamapitems.handler.*;
+import ru.net.serbis.gtamapitems.util.*;
 
 public class App extends Application
 {
@@ -12,5 +13,6 @@ public class App extends Application
         super.onCreate();
         Context context = getApplicationContext();
         Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(context));
+        Preferences.get().set(context);
     }
 }

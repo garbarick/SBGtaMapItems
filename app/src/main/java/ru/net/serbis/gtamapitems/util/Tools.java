@@ -1,10 +1,8 @@
 package ru.net.serbis.gtamapitems.util;
 
 import android.app.*;
-import android.content.*;
 import android.view.*;
 import java.io.*;
-import ru.net.serbis.gtamapitems.*;
 
 public class Tools
 {
@@ -34,15 +32,5 @@ public class Tools
         StringWriter writer = new StringWriter();
         error.printStackTrace(new PrintWriter(writer));
         return writer.toString();
-    }
-
-    public SharedPreferences getPreferences(Context context)
-    {
-        return context.getSharedPreferences(Constants.APP, Context.MODE_PRIVATE);
-    }
-
-    public SharedPreferences.Editor getPreferencesEditor(Context context)
-    {
-        return getPreferences(context).edit();
     }
 }

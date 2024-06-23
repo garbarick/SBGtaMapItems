@@ -117,11 +117,16 @@ public class MatrixState
         }
     }
 
-    private float[] getValues()
+    public float[] getValues()
     {
         float[] values = new float[9];
         matrix.getValues(values);
         return values;
+    }
+
+    public void setValues(float[] values)
+    {
+        matrix.setValues(values);
     }
 
     public PointF getPosition()

@@ -13,16 +13,17 @@ import ru.net.serbis.gtamapitems.util.*;
 
 public class ImageMap extends ImageView implements View.OnTouchListener
 {
-    public interface OnChangeCheckingListener
+    public interface OnChangeListener
     {
         void onChangeChecking(ImageMap view)
+        void onChangeMatrixValues(ImageMap view);
     }
 
     private List<Check> checks = new ArrayList<Check>();
     private boolean checking;
     private boolean erasing;
     private GestureDetector detector;
-    private List<OnChangeCheckingListener> listeners = new ArrayList<OnChangeCheckingListener>();
+    private List<OnChangeListener> listeners = new ArrayList<OnChangeListener>();
     private int type;
     private int checkSize;
     private MatrixState state;
@@ -122,6 +123,7 @@ public class ImageMap extends ImageView implements View.OnTouchListener
                 break;
         }
         state.apply();
+        changeMatrixValues();
         return true;
     }
 
@@ -175,14 +177,14 @@ public class ImageMap extends ImageView implements View.OnTouchListener
         return checks;
     }
 
-    public void setOnChangeCheckingListener(OnChangeCheckingListener listener)
+    public void setOnChangeCheckingListener(OnChangeListener listener)
     {
         listeners.add(listener);
     }
 
     private void changeChecking()
     {
-        for (OnChangeCheckingListener listener : listeners)
+        for (OnChangeListener listener : listeners)
         {
             listener.onChangeChecking(this);
         }
@@ -200,9 +202,13 @@ public class ImageMap extends ImageView implements View.OnTouchListener
         return (ViewGroup) getParent();
     }
 
-    public void reset()
+    public void reset(boolean save)
     {
         state.reset();
+        if (save)
+        {
+            changeMatrixValues();
+        }
     }
 
     public void fitWidth()
@@ -211,17 +217,43 @@ public class ImageMap extends ImageView implements View.OnTouchListener
         PointF pos = state.getPosition();
         state.translate(- pos.x, - pos.y);
         state.apply();
+        changeMatrixValues();
     }
 
     public void zoomIn()
     {
         state.setScale(1.1f, 1.1f, 0, 0);
         state.apply();
+        changeMatrixValues();
     }
 
     public void zoomOut()
     {
         state.setScale(0.9f, 0.9f, 0, 0);
         state.apply();
+        changeMatrixValues();
+    }
+
+    public float[] getMatrixValues()
+    {
+        return state.getValues();
+    }
+
+    public void setMatrixValues(float[] values)
+    {
+        if (values == null)
+        {
+            return;
+        }
+        state.setValues(values);
+        state.apply();
+    }
+
+    private void changeMatrixValues()
+    {
+        for (OnChangeListener listener : listeners)
+        {
+            listener.onChangeMatrixValues(this);
+        }
     }
 }

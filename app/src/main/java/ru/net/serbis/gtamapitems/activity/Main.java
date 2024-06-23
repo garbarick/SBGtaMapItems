@@ -1,7 +1,6 @@
 package ru.net.serbis.gtamapitems.activity;
 
 import android.app.*;
-import android.content.*;
 import android.content.res.*;
 import android.os.*;
 import android.view.*;
@@ -13,7 +12,7 @@ import ru.net.serbis.gtamapitems.listener.*;
 import ru.net.serbis.gtamapitems.util.*;
 import ru.net.serbis.gtamapitems.view.*;
 
-public class Main extends Activity implements ImageMap.OnChangeCheckingListener
+public class Main extends Activity implements ImageMap.OnChangeListener
 {
     private Spinner maps;
     private MapsAdapter adapter;
@@ -50,9 +49,10 @@ public class Main extends Activity implements ImageMap.OnChangeCheckingListener
         maps = Tools.get().findView(this, R.id.maps);
         adapter = new MapsAdapter(this);
         maps.setAdapter(adapter);
-        maps.setOnItemSelectedListener(new MapSelectListener(this, adapter));
+        MapSelectListener listener = new MapSelectListener(this, adapter);
+        maps.setOnItemSelectedListener(listener);
 
-        String mapKey = Tools.get().getPreferences(this).getString(Constants.LAST_MAP, "");
+        String mapKey = Preferences.get().getString(Constants.LAST_MAP, "");
         initCurrent(mapKey);
     }
 
@@ -75,9 +75,15 @@ public class Main extends Activity implements ImageMap.OnChangeCheckingListener
         Map map = adapter.getItem(maps.getSelectedItemPosition());
         map.setChecks(view.getChecks());
         String value = new JsonTools().toJson(view.getChecks());
-        SharedPreferences.Editor editor = Tools.get().getPreferencesEditor(this);
-        editor.putString(map.getKey(), value);
-        editor.commit();
+        Preferences.get().setString(map.getKey(), value);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onChangeMatrixValues(ImageMap view)
+    {
+        Map map = adapter.getItem(maps.getSelectedItemPosition());
+        map.setValues(view.getMatrixValues());
+        map.saveValues();
     }
 }

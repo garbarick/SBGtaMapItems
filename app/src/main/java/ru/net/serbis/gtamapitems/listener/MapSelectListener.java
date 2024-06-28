@@ -14,7 +14,7 @@ public class MapSelectListener implements AdapterView.OnItemSelectedListener
     private Activity context;
     private MapsAdapter adapter;
     private ImageMap imageMap;
-    private Map current;
+    private GameMap current;
 
     public MapSelectListener(Activity context, MapsAdapter adapter)
     {
@@ -32,7 +32,7 @@ public class MapSelectListener implements AdapterView.OnItemSelectedListener
             current.saveValues();
         }
 
-        Map map = adapter.getItem(pos);
+        GameMap map = adapter.getItem(pos);
         imageMap.setImageResource(map.getDrawableId());
         imageMap.setChecks(map.getChecks());
         imageMap.reset(false);

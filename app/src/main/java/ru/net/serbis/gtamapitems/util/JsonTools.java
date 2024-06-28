@@ -6,7 +6,7 @@ import ru.net.serbis.gtamapitems.data.*;
 
 public class JsonTools
 {
-    public String toJson(List<Check> checks)
+    public JSONArray toJson(List<Check> checks)
     {
         JSONArray result = new JSONArray();
         try
@@ -24,7 +24,7 @@ public class JsonTools
         {
             Log.error(this, e);
         }
-        return result.toString();
+        return result;
     }
 
     public List<Check> parseChecks(String json)
@@ -33,6 +33,20 @@ public class JsonTools
         try
         {
             JSONArray items = new JSONArray(json);
+            result.addAll(parseChecks(items));
+        }
+        catch (Exception e)
+        {
+            Log.error(this, e);
+        }
+        return result;
+    }
+
+    public List<Check> parseChecks(JSONArray items)
+    {
+        List<Check> result = new ArrayList<Check>();
+        try
+        {
             for (int i = 0; i < items.length(); i++)
             {
                 JSONObject item = items.getJSONObject(i);
@@ -52,7 +66,7 @@ public class JsonTools
         return item.has(key) ? item.getInt(key) : 0;
     }
 
-    public String toJson(float[] data)
+    public JSONArray toJson(float[] data)
     {
         JSONArray result = new JSONArray();
         try
@@ -66,7 +80,7 @@ public class JsonTools
         {
             Log.error(this, e);
         }
-        return result.toString();
+        return result;
     }
 
     public float[] parseValues(String data)
@@ -90,5 +104,56 @@ public class JsonTools
             Log.error(this, e);
         }
         return result;
+    }
+
+    public JSONObject toJson(Collection<GameMap> maps)
+    {
+        JSONObject result = new JSONObject();
+        try
+        {
+            for (GameMap map : maps)
+            {
+                List<Check> checks = map.getChecks();
+                if (checks.isEmpty())
+                {
+                    continue;
+                }
+                result.put(map.getKey(), toJson(checks));
+            }
+        }
+        catch (Exception e)
+        {
+            Log.error(this, e);
+        }
+        return result;
+    }
+
+    public boolean parseMapChecks(String data)
+    {
+        try
+        {
+            Map<String, GameMap> maps = Maps.get().getItems();
+            JSONObject object = new JSONObject(data);
+            Iterator<String> iter = object.keys();
+            while (iter.hasNext())
+            {
+                String key = iter.next();
+                if (maps.containsKey(key))
+                {
+                    JSONArray array = object.getJSONArray(key);
+                    List<Check> checks = parseChecks(array);
+                    GameMap map = maps.get(key);
+                    map.setChecks(checks);
+                    map.saveChecks();
+                }
+            }
+            return true;
+        }
+        catch (Exception e)
+        {
+            Log.error(this, e);
+            Toasts.get().toast(e.getMessage());
+            return false;
+        }
     }
 }

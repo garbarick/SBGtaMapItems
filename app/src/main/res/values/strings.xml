@@ -4,4 +4,16 @@
     <string name="uncaught_exception">Uncaught exception</string>
     <string name="confirmation">Confirmation</string>
     <string name="clean_up_all_items">Clean up all items?</string>
+    <string name="original_size">Original size</string>
+    <string name="fit">Fit</string>
+    <string name="zoom_in">Zoom in</string>
+    <string name="zoom_out">Zoom out</string>
+    <string name="check">Check</string>
+    <string name="erase">Erase</string>
+    <string name="clean_up">Clean up</string>
+    <string name="export_checks">Export checks</string>
+    <string name="import_checks">Import checks</string>
+    <string name="info">Info</string>
+    <string name="choose_file">Choose file</string>
+    <string name="done">Done</string>
 </resources>

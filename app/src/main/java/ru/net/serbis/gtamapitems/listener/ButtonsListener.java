@@ -27,11 +27,14 @@ public class ButtonsListener implements View.OnClickListener, CheckBoxesPopup.On
     {
         initButton(R.id.check);
         initButton(R.id.erase);
-        initButton(R.id.original);
-        initButton(R.id.zoom);
+        initButton(R.id.original_size);
+        initButton(R.id.fit);
         initButton(R.id.zoom_in);
         initButton(R.id.zoom_out);
         initButton(R.id.clean_up);
+        initButton(R.id.export_checks);
+        initButton(R.id.import_checks);
+        initButton(R.id.info);
     }
 
     private void initButton(int id)
@@ -57,11 +60,11 @@ public class ButtonsListener implements View.OnClickListener, CheckBoxesPopup.On
             case R.id.erase:
                 erase((ImageButton) view);
                 break;
-            case R.id.original:
+            case R.id.original_size:
                 original();
                 break;
-            case R.id.zoom:
-                zoom();
+            case R.id.fit:
+                fit();
                 break;
             case R.id.zoom_in:
                 zoomIn();
@@ -71,6 +74,15 @@ public class ButtonsListener implements View.OnClickListener, CheckBoxesPopup.On
                 break;
             case R.id.clean_up:
                 cleanUp();
+                break;
+            case R.id.export_checks:
+                new ExportImport(context).exportChecks();
+                break;
+            case R.id.import_checks:
+                new ExportImport(context).importChecks();
+                break;
+            case R.id.info:
+                new InfoDialog(context);
                 break;
         }
     }
@@ -113,7 +125,7 @@ public class ButtonsListener implements View.OnClickListener, CheckBoxesPopup.On
         imageMap.reset(true);
     }
 
-    private void zoom()
+    private void fit()
     {
         imageMap.fitWidth();
     }

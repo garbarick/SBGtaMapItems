@@ -12,7 +12,7 @@
 
 	<ru.net.serbis.gtamapitems.view.ButtonsView
 		android:layout_width="match_parent"
-		android:layout_height="50dp"
+		android:layout_height="100dp"
 		android:columnCount="7"
 		android:layout="@layout/buttons"/>
 

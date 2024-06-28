@@ -27,9 +27,4 @@ public class Resource
     {
         return drawableId;
     }
-
-    public String getKeyValues()
-    {
-        return key + "#values";
-    }
 }

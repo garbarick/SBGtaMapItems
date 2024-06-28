@@ -11,16 +11,15 @@
 		android:layout_height="wrap_content">
 
 		<Spinner
-			android:layout_width="match_parent"
+			android:layout_width="wrap_content"
 			android:id="@+id/maps"
-			android:layout_height="match_parent"
-			android:layout_weight="1"/>
+			android:layout_height="match_parent"/>
 
 		<ru.net.serbis.gtamapitems.view.ButtonsView
 			android:layout_width="match_parent"
 			android:layout_height="50dp"
 			android:layout_weight="1"
-			android:columnCount="7"
+			android:columnCount="10"
 			android:layout="@layout/buttons"/>
 
 	</LinearLayout>

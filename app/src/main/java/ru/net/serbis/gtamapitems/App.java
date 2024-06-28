@@ -14,5 +14,7 @@ public class App extends Application
         Context context = getApplicationContext();
         Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(context));
         Preferences.get().set(context);
+        Strings.get().set(context);
+        Toasts.get().set(context);
     }
 }

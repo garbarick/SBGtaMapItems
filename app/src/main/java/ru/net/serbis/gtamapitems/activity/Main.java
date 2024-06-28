@@ -14,6 +14,7 @@ import ru.net.serbis.gtamapitems.view.*;
 
 public class Main extends Activity implements ImageMap.OnChangeListener
 {
+    private ImageMap map;
     private Spinner maps;
     private MapsAdapter adapter;
 
@@ -40,7 +41,7 @@ public class Main extends Activity implements ImageMap.OnChangeListener
 
     private void initMap()
     {
-        ImageMap map = Tools.get().findView(this, R.id.map);
+        map = Tools.get().findView(this, R.id.map);
         map.setOnChangeCheckingListener(this);
     }
 
@@ -60,7 +61,7 @@ public class Main extends Activity implements ImageMap.OnChangeListener
     {
         for (int i = 0; i < adapter.getCount(); i++)
         {
-            Map map = adapter.getItem(i);
+            GameMap map = adapter.getItem(i);
             if (mapKey.equals(map.getKey()))
             {
                 maps.setSelection(i);
@@ -72,17 +73,24 @@ public class Main extends Activity implements ImageMap.OnChangeListener
     @Override
     public void onChangeChecking(ImageMap view)
     {
-        Map map = adapter.getItem(maps.getSelectedItemPosition());
+        GameMap map = adapter.getItem(maps.getSelectedItemPosition());
         map.setChecks(view.getChecks());
-        String value = new JsonTools().toJson(view.getChecks());
-        Preferences.get().setString(map.getKey(), value);
+        map.saveChecks();
         adapter.notifyDataSetChanged();
+    }
+
+    public void notifyDataSetChanged()
+    {
+        adapter.notifyDataSetChanged();
+        int pos = maps.getSelectedItemPosition();
+        map.setChecks(adapter.getItem(pos).getChecks());
+        map.invalidate();
     }
 
     @Override
     public void onChangeMatrixValues(ImageMap view)
     {
-        Map map = adapter.getItem(maps.getSelectedItemPosition());
+        GameMap map = adapter.getItem(maps.getSelectedItemPosition());
         map.setValues(view.getMatrixValues());
         map.saveValues();
     }

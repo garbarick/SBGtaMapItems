@@ -44,6 +44,31 @@ public class ImageMap extends ImageView implements View.OnTouchListener
         }
     }
 
+    private class MotionListener implements View.OnGenericMotionListener
+    {
+        @Override
+        public boolean onGenericMotion(View view, MotionEvent event)
+        {
+            if (0 != (event.getSource() & InputDevice.SOURCE_CLASS_POINTER))
+            {
+                switch (event.getAction())
+                {
+                    case MotionEvent.ACTION_SCROLL:
+                        if (event.getAxisValue(MotionEvent.AXIS_VSCROLL) < 0.0f)
+                        {
+                            zoomOut();
+                        }
+                        else
+                        {
+                            zoomIn();
+                        }
+                        return true;
+                }
+            }
+            return false;
+        }
+    }
+
     public ImageMap(Context context, AttributeSet attrs)
     {
         super(context, attrs);
@@ -52,6 +77,7 @@ public class ImageMap extends ImageView implements View.OnTouchListener
         setScaleType(ScaleType.MATRIX);
         state = new MatrixState(this);
         checkSize = (int) context.getResources().getDimension(R.dimen.check_size);
+        setOnGenericMotionListener(new MotionListener());
     }
 
     public void setChecking(boolean checking)
@@ -222,14 +248,14 @@ public class ImageMap extends ImageView implements View.OnTouchListener
 
     public void zoomIn()
     {
-        state.setScale(1.1f, 1.1f, 0, 0);
+        state.setScale(1.05f, 1.05f, 0, 0);
         state.apply();
         changeMatrixValues();
     }
 
     public void zoomOut()
     {
-        state.setScale(0.9f, 0.9f, 0, 0);
+        state.setScale(0.95f, 0.95f, 0, 0);
         state.apply();
         changeMatrixValues();
     }

@@ -9,6 +9,7 @@ import android.widget.*;
 import java.util.*;
 import ru.net.serbis.gtamapitems.*;
 import ru.net.serbis.gtamapitems.data.*;
+import ru.net.serbis.gtamapitems.listener.*;
 import ru.net.serbis.gtamapitems.util.*;
 
 public class ImageMap extends ImageView implements View.OnTouchListener
@@ -20,79 +21,27 @@ public class ImageMap extends ImageView implements View.OnTouchListener
     }
 
     private List<Check> checks = new ArrayList<Check>();
-    private boolean checking;
-    private boolean erasing;
     private GestureDetector detector;
     private List<OnChangeListener> listeners = new ArrayList<OnChangeListener>();
-    private int type;
-    private int checkSize;
     private MatrixState state;
-
-    private class GestureListener extends GestureDetector.SimpleOnGestureListener
-    {
-        @Override
-        public boolean onDown(MotionEvent event)
-        {
-            return true;
-        }
-
-        @Override
-        public boolean onSingleTapConfirmed(MotionEvent event)
-        {
-            changeChecking(event);
-            return false;
-        }
-    }
-
-    private class MotionListener implements View.OnGenericMotionListener
-    {
-        @Override
-        public boolean onGenericMotion(View view, MotionEvent event)
-        {
-            if (0 != (event.getSource() & InputDevice.SOURCE_CLASS_POINTER))
-            {
-                switch (event.getAction())
-                {
-                    case MotionEvent.ACTION_SCROLL:
-                        if (event.getAxisValue(MotionEvent.AXIS_VSCROLL) < 0.0f)
-                        {
-                            zoomOut();
-                        }
-                        else
-                        {
-                            zoomIn();
-                        }
-                        return true;
-                }
-            }
-            return false;
-        }
-    }
+    private CheckState checkState = new CheckState();
 
     public ImageMap(Context context, AttributeSet attrs)
     {
         super(context, attrs);
-        detector = new GestureDetector(context, new GestureListener());
+        detector = new GestureDetector(context, new GestureListener(this));
         setOnTouchListener(this);
         setScaleType(ScaleType.MATRIX);
         state = new MatrixState(this);
-        checkSize = (int) context.getResources().getDimension(R.dimen.check_size);
-        setOnGenericMotionListener(new MotionListener());
+        checkState.init(context);
+        setOnGenericMotionListener(new MotionListener(this));
     }
 
-    public void setChecking(boolean checking)
+    public void setCheckState(boolean checking, boolean erasing, int type)
     {
-        this.checking = checking;
-    }
-
-    public void setErasing(boolean erasing)
-    {
-        this.erasing = erasing;
-    }
-
-    public void setType(int type)
-    {
-        this.type = type;
+        checkState.setChecking(checking);
+        checkState.setErasing(erasing);
+        checkState.setType(type);
     }
 
     @Override
@@ -111,11 +60,11 @@ public class ImageMap extends ImageView implements View.OnTouchListener
         float scale = state.getScale();
         PointF pos = state.getPosition();
 
-        int h = (int) (checkSize * scale);
+        int h = (int) (checkState.getSize() * scale);
         int x = (int) (check.x * scale - h / 2 + pos.x);
         int y = (int) (check.y * scale - h / 2 + pos.y);
         Drawable item = CheckBoxes.get().getDrawable(check.type, getContext());
-        item.setBounds(0, 0, checkSize, checkSize);
+        item.setBounds(0, 0, checkState.getSize(), checkState.getSize());
         canvas.save();
         canvas.translate(x, y);
         canvas.scale(scale, scale);
@@ -126,7 +75,7 @@ public class ImageMap extends ImageView implements View.OnTouchListener
     @Override
     public boolean onTouch(View view, MotionEvent event)
     {
-        if (checking || erasing)
+        if (checkState.isActive())
         {
             return detector.onTouchEvent(event);
         }
@@ -153,7 +102,7 @@ public class ImageMap extends ImageView implements View.OnTouchListener
         return true;
     }
 
-    private void changeChecking(MotionEvent event)
+    public void changeChecking(MotionEvent event)
     {
         float scale = state.getScale();
         PointF pos = state.getPosition();
@@ -161,9 +110,9 @@ public class ImageMap extends ImageView implements View.OnTouchListener
         int x = (int) ((event.getX() - pos.x) / scale);
         int y = (int) ((event.getY() - pos.y) / scale);
 
-        if (checking)
+        if (checkState.isChecking())
         {
-            checks.add(new Check(x, y, type));
+            checks.add(new Check(x, y, checkState.getType()));
         }
         else
         {

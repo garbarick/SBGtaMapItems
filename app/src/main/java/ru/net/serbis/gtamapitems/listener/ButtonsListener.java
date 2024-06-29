@@ -92,7 +92,7 @@ public class ButtonsListener implements View.OnClickListener, CheckBoxesPopup.On
         if (button.isSelected())
         {
             button.setSelected(false);
-            imageMap.setChecking(false);
+            imageMap.setCheckState(false, false, 0);
         }
         else
         {
@@ -107,17 +107,14 @@ public class ButtonsListener implements View.OnClickListener, CheckBoxesPopup.On
         ImageButton button = Tools.get().findView(context, R.id.check);
         button.setSelected(true);
         selectButton(R.id.erase, false);
-        imageMap.setChecking(true);
-        imageMap.setErasing(false);
-        imageMap.setType(type);
+        imageMap.setCheckState(true, false, type);
     }
 
     private void erase(ImageButton button)
     {
         button.setSelected(!button.isSelected());
         selectButton(R.id.check, false);
-        imageMap.setErasing(button.isSelected());
-        imageMap.setChecking(false);
+        imageMap.setCheckState(false, button.isSelected(), 0);
     }
 
     private void original()

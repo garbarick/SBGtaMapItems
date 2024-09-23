@@ -4,7 +4,9 @@ import android.content.*;
 import android.view.*;
 import android.widget.*;
 import ru.net.serbis.gtamapitems.*;
-import ru.net.serbis.gtamapitems.util.*;
+import ru.net.serbis.utils.*;
+
+import ru.net.serbis.gtamapitems.R;
 
 public class InfoAdapter extends ArrayAdapter<ImageButton>
 {
@@ -32,9 +34,9 @@ public class InfoAdapter extends ArrayAdapter<ImageButton>
     {
         ImageButton button = getItem(position);
         view = LayoutInflater.from(getContext()).inflate(R.layout.resource_img, parent, false);
-        TextView text = Tools.get().findView(view, R.id.name);
+        TextView text = UITool.get().findView(view, R.id.name);
         text.setText(button.getTooltipText());
-        ImageView img = Tools.get().findView(view, R.id.img);
+        ImageView img = UITool.get().findView(view, R.id.img);
         img.setBackground(button.getDrawable());
         return view;
     }

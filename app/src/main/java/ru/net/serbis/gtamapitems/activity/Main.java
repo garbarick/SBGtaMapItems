@@ -9,8 +9,10 @@ import ru.net.serbis.gtamapitems.*;
 import ru.net.serbis.gtamapitems.adapter.*;
 import ru.net.serbis.gtamapitems.data.*;
 import ru.net.serbis.gtamapitems.listener.*;
-import ru.net.serbis.gtamapitems.util.*;
 import ru.net.serbis.gtamapitems.view.*;
+import ru.net.serbis.utils.*;
+
+import ru.net.serbis.gtamapitems.R;
 
 public class Main extends Activity implements ImageMap.OnChangeListener
 {
@@ -41,13 +43,13 @@ public class Main extends Activity implements ImageMap.OnChangeListener
 
     private void initMap()
     {
-        map = Tools.get().findView(this, R.id.map);
+        map = UITool.get().findView(this, R.id.map);
         map.setOnChangeCheckingListener(this);
     }
 
     private void initMaps()
     {
-        maps = Tools.get().findView(this, R.id.maps);
+        maps = UITool.get().findView(this, R.id.maps);
         adapter = new MapsAdapter(this);
         maps.setAdapter(adapter);
         MapSelectListener listener = new MapSelectListener(this, adapter);

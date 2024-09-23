@@ -3,6 +3,9 @@ package ru.net.serbis.gtamapitems.util;
 import java.util.*;
 import ru.net.serbis.gtamapitems.*;
 import ru.net.serbis.gtamapitems.data.*;
+import ru.net.serbis.utils.*;
+
+import ru.net.serbis.gtamapitems.R;
 
 public class Maps
 {

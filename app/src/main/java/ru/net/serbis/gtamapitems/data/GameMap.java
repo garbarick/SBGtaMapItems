@@ -2,6 +2,7 @@ package ru.net.serbis.gtamapitems.data;
 
 import java.util.*;
 import ru.net.serbis.gtamapitems.util.*;
+import ru.net.serbis.utils.*;
 
 public class GameMap extends Resource
 {

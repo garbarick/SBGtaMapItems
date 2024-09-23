@@ -6,8 +6,10 @@ import android.widget.*;
 import ru.net.serbis.gtamapitems.*;
 import ru.net.serbis.gtamapitems.adapter.*;
 import ru.net.serbis.gtamapitems.data.*;
-import ru.net.serbis.gtamapitems.util.*;
 import ru.net.serbis.gtamapitems.view.*;
+import ru.net.serbis.utils.*;
+
+import ru.net.serbis.gtamapitems.R;
 
 public class MapSelectListener implements AdapterView.OnItemSelectedListener
 {
@@ -20,7 +22,7 @@ public class MapSelectListener implements AdapterView.OnItemSelectedListener
     {
         this.context = context;
         this.adapter = adapter;
-        imageMap = Tools.get().findView(context, R.id.map);
+        imageMap = UITool.get().findView(context, R.id.map);
     }
 
     @Override

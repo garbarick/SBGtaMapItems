@@ -7,6 +7,9 @@ import java.util.*;
 import ru.net.serbis.gtamapitems.*;
 import ru.net.serbis.gtamapitems.data.*;
 import ru.net.serbis.gtamapitems.util.*;
+import ru.net.serbis.utils.*;
+
+import ru.net.serbis.gtamapitems.R;
 
 public class CheckBoxesAdapter extends ArrayAdapter<Holder<Integer>>
 {
@@ -32,9 +35,9 @@ public class CheckBoxesAdapter extends ArrayAdapter<Holder<Integer>>
         {
             view = LayoutInflater.from(getContext()).inflate(R.layout.image_item, parent, false);
         }
-        ImageView img = Tools.get().findView(view, R.id.image);
+        ImageView img = UITool.get().findView(view, R.id.image);
         img.setImageResource(CheckBoxes.get().getDrawableId(position));
-        TextView count = Tools.get().findView(view, R.id.count);
+        TextView count = UITool.get().findView(view, R.id.count);
         count.setText(getItem(position).getValue().toString());
         return view;
     }

@@ -5,7 +5,9 @@ import android.content.res.*;
 import android.util.*;
 import android.widget.*;
 import ru.net.serbis.gtamapitems.*;
-import ru.net.serbis.gtamapitems.util.*;
+import ru.net.serbis.utils.*;
+
+import ru.net.serbis.gtamapitems.R;
 
 public class ButtonsView extends GridLayout
 {
@@ -19,7 +21,7 @@ public class ButtonsView extends GridLayout
         int layout = values.getResourceId(0, 0);
         int columnCount = values.getInt(1, 0);
         inflate(context, layout, this);
-        GridLayout buttons = Tools.get().findView(this, R.id.buttons);
+        GridLayout buttons = UITool.get().findView(this, R.id.buttons);
         buttons.setColumnCount(columnCount);
     }
 }

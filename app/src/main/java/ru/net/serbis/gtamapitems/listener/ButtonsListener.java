@@ -8,6 +8,9 @@ import ru.net.serbis.gtamapitems.dialog.*;
 import ru.net.serbis.gtamapitems.popup.*;
 import ru.net.serbis.gtamapitems.util.*;
 import ru.net.serbis.gtamapitems.view.*;
+import ru.net.serbis.utils.*;
+
+import ru.net.serbis.gtamapitems.R;
 
 public class ButtonsListener implements View.OnClickListener, CheckBoxesPopup.OnChangeCheckTypeListener
 {
@@ -18,7 +21,7 @@ public class ButtonsListener implements View.OnClickListener, CheckBoxesPopup.On
     public ButtonsListener(Activity context)
     {
         this.context = context;
-        imageMap = Tools.get().findView(context, R.id.map);
+        imageMap = UITool.get().findView(context, R.id.map);
         initButtons();
         initPopup();
     }
@@ -39,7 +42,7 @@ public class ButtonsListener implements View.OnClickListener, CheckBoxesPopup.On
 
     private void initButton(int id)
     {
-        ImageButton button = Tools.get().findView(context, id);
+        ImageButton button = UITool.get().findView(context, id);
         button.setOnClickListener(this);
     }
 
@@ -104,7 +107,7 @@ public class ButtonsListener implements View.OnClickListener, CheckBoxesPopup.On
     @Override
     public void onChangeCheckType(int type)
     {
-        ImageButton button = Tools.get().findView(context, R.id.check);
+        ImageButton button = UITool.get().findView(context, R.id.check);
         button.setSelected(true);
         selectButton(R.id.erase, false);
         imageMap.setCheckState(true, false, type);
@@ -139,7 +142,7 @@ public class ButtonsListener implements View.OnClickListener, CheckBoxesPopup.On
 
     private void selectButton(int id, boolean selected)
     {
-        ImageButton button = Tools.get().findView(context, id);
+        ImageButton button = UITool.get().findView(context, id);
         button.setSelected(selected);
     }
 

@@ -5,7 +5,8 @@ import android.app.*;
 import java.io.*;
 import ru.net.serbis.gtamapitems.*;
 import ru.net.serbis.gtamapitems.activity.*;
-import ru.net.serbis.gtamapitems.dialog.*;
+import ru.net.serbis.utils.*;
+import ru.net.serbis.utils.dialog.*;
 
 import ru.net.serbis.gtamapitems.R;
 
@@ -30,9 +31,9 @@ public class ExportImport
         {
             return;
         }
-        File file = new File(IOTool.get().getExternalFile("backups"), IOTool.get().getJsonName());
+        File file = new File(IOTool.get().getExternalFile("backups"), new JsonTools().getJsonName());
         IOTool.get().copy(new JsonTools().toJson(Maps.get().getItems().values()), file);
-        Toasts.get().toast(file.getAbsolutePath());
+        UITool.get().toast(file.getAbsolutePath());
     }
 
     public void importChecks()
@@ -47,10 +48,10 @@ public class ExportImport
             @Override
             public void onChoose(String path)
             {
-                if (new JsonTools().parseMapChecks(IOTool.get().readFile(new File(path))))
+                if (new JsonTools().parseMapChecks(IOTool.get().readFile(new File(path), 10240)))
                 {
                     ((Main) context).notifyDataSetChanged();
-                    Toasts.get().toast(R.string.done);
+                    UITool.get().toast(R.string.done);
                 }
             }
         };

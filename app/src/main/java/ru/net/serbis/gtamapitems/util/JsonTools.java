@@ -1,8 +1,11 @@
 package ru.net.serbis.gtamapitems.util;
 
+import java.text.*;
 import java.util.*;
 import org.json.*;
+import ru.net.serbis.gtamapitems.*;
 import ru.net.serbis.gtamapitems.data.*;
+import ru.net.serbis.utils.*;
 
 public class JsonTools
 {
@@ -152,8 +155,14 @@ public class JsonTools
         catch (Exception e)
         {
             Log.error(this, e);
-            Toasts.get().toast(e.getMessage());
+            UITool.get().toast(e.getMessage());
             return false;
         }
+    }
+
+    public String getJsonName()
+    {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+        return Constants.APP + "-" + format.format(new Date()) + Constants.JSON_EXT;
     }
 }

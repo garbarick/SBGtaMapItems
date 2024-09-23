@@ -4,7 +4,9 @@ import android.content.*;
 import android.view.*;
 import android.widget.*;
 import ru.net.serbis.gtamapitems.*;
-import ru.net.serbis.gtamapitems.util.*;
+import ru.net.serbis.utils.*;
+
+import ru.net.serbis.gtamapitems.R;
 
 public abstract class ListViewPopup<T extends ArrayAdapter> extends PopupWindow implements AdapterView.OnItemClickListener
 {
@@ -23,7 +25,7 @@ public abstract class ListViewPopup<T extends ArrayAdapter> extends PopupWindow 
         this.context = context;
         setOutsideTouchable(true);
         view = getContentView();
-        list = Tools.get().findView(view, R.id.list);
+        list = UITool.get().findView(view, R.id.list);
         adapter = createAdapter();
         list.setAdapter(adapter);
         list.setOnItemClickListener(this);

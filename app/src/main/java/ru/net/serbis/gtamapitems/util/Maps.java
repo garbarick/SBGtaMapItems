@@ -16,6 +16,7 @@ public class Maps
             new GameMap("map_gta_3_jumps", R.string.map_gta_3_jumps, R.drawable.map_gta_3_jumps),
             new GameMap("map_gta_3_packages", R.string.map_gta_3_packages, R.drawable.map_gta_3_packages),
             new GameMap("map_gta_3_rampages", R.string.map_gta_3_rampages, R.drawable.map_gta_3_rampages),
+            new GameMap("map_gta_3_missions", R.string.map_gta_3_missions, R.drawable.map_gta_3_missions),
 
             new GameMap("map_gta_lcs_portland_others", R.string.map_gta_lcs_portland_others, R.drawable.map_gta_lcs_portland_others),
             new GameMap("map_gta_lcs_portland_packages", R.string.map_gta_lcs_portland_packages, R.drawable.map_gta_lcs_portland_packages),

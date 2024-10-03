@@ -28,6 +28,7 @@ public class Maps
             new GameMap("map_gta_vc_jumps", R.string.map_gta_vc_jumps, R.drawable.map_gta_vc_jumps),
             new GameMap("map_gta_vc_packages", R.string.map_gta_vc_packages, R.drawable.map_gta_vc_packages),
             new GameMap("map_gta_vc_rampages", R.string.map_gta_vc_rampages, R.drawable.map_gta_vc_rampages),
+            new GameMap("map_gta_vc_missions", R.string.map_gta_vc_missions, R.drawable.map_gta_vc_missions),
 
             new GameMap("map_gta_vcs_balloons", R.string.map_gta_vcs_balloons, R.drawable.map_gta_vcs_balloons),
             new GameMap("map_gta_vcs_jumps", R.string.map_gta_vcs_jumps, R.drawable.map_gta_vcs_jumps),

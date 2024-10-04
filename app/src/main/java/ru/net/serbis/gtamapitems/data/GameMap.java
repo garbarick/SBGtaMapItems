@@ -4,7 +4,7 @@ import java.util.*;
 import ru.net.serbis.gtamapitems.util.*;
 import ru.net.serbis.utils.*;
 
-public class GameMap extends Resource
+public class GameMap extends Resource implements Comparable<GameMap>
 {
     private List<Check> checks = new ArrayList<Check>();
     private float[] values;
@@ -65,5 +65,11 @@ public class GameMap extends Resource
     public void saveValues()
     {
         Preferences.get().setString(getKeyValues(), new JsonTools().toJson(getValues()).toString());
+    }
+
+    @Override
+    public int compareTo(GameMap that)
+    {
+        return key.compareTo(that.key);
     }
 }

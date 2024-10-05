@@ -35,12 +35,13 @@ public class MapSelectListener implements AdapterView.OnItemSelectedListener
         }
 
         GameMap map = adapter.getItem(pos);
-        imageMap.setImageResource(map.getDrawableId());
+        imageMap.setImageResource(map.getPictureId());
+        imageMap.setLayer(map.getLayerId());
         imageMap.setChecks(map.getChecks());
         imageMap.reset(false);
         imageMap.setMatrixValues(map.getValues());
 
-        Preferences.get().setString(Constants.LAST_MAP, map.getKey());
+        Preferences.get().setString(Constants.LAST_MAP, map.getName());
         current = map;
     }
 

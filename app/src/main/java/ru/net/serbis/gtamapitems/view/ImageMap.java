@@ -7,7 +7,6 @@ import android.util.*;
 import android.view.*;
 import android.widget.*;
 import java.util.*;
-import ru.net.serbis.gtamapitems.*;
 import ru.net.serbis.gtamapitems.data.*;
 import ru.net.serbis.gtamapitems.listener.*;
 import ru.net.serbis.gtamapitems.util.*;
@@ -25,6 +24,7 @@ public class ImageMap extends ImageView implements View.OnTouchListener
     private List<OnChangeListener> listeners = new ArrayList<OnChangeListener>();
     private MatrixState state;
     private CheckState checkState = new CheckState();
+    private int layerId;
 
     public ImageMap(Context context, AttributeSet attrs)
     {
@@ -35,6 +35,11 @@ public class ImageMap extends ImageView implements View.OnTouchListener
         state = new MatrixState(this);
         checkState.init(context);
         setOnGenericMotionListener(new MotionListener(this));
+    }
+
+    public void setLayer(int layerId)
+    {
+        this.layerId = layerId;
     }
 
     public void setCheckState(boolean checking, boolean erasing, int type)
@@ -49,10 +54,30 @@ public class ImageMap extends ImageView implements View.OnTouchListener
     {
         super.onDraw(canvas);
         canvas.drawColor(Color.TRANSPARENT);
+        drawLayer(canvas);
         for (Check check : checks)
         {
             drawCheck(canvas, check);
         }
+    }
+
+    private void drawLayer(Canvas canvas)
+    {
+        if (layerId == 0)
+        {
+            return;
+        }
+        float scale = state.getScale();
+        PointF pos = state.getPosition();
+
+        Drawable layer = getContext().getDrawable(layerId);
+        layer.setBounds(0, 0, layer.getIntrinsicWidth(), layer.getIntrinsicHeight());
+
+        canvas.save();
+        canvas.translate(pos.x, pos.y);
+        canvas.scale(scale, scale);
+        layer.draw(canvas);
+        canvas.restore();
     }
 
     private void drawCheck(Canvas canvas, Check check)
@@ -60,11 +85,13 @@ public class ImageMap extends ImageView implements View.OnTouchListener
         float scale = state.getScale();
         PointF pos = state.getPosition();
 
+        Drawable item = CheckBoxes.get().getDrawable(check.type, getContext());
+        item.setBounds(0, 0, checkState.getSize(), checkState.getSize());
+ 
         int h = (int) (checkState.getSize() * scale);
         int x = (int) (check.x * scale - h / 2 + pos.x);
         int y = (int) (check.y * scale - h / 2 + pos.y);
-        Drawable item = CheckBoxes.get().getDrawable(check.type, getContext());
-        item.setBounds(0, 0, checkState.getSize(), checkState.getSize());
+
         canvas.save();
         canvas.translate(x, y);
         canvas.scale(scale, scale);

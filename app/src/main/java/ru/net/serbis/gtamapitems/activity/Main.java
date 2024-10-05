@@ -64,7 +64,7 @@ public class Main extends Activity implements ImageMap.OnChangeListener
         for (int i = 0; i < adapter.getCount(); i++)
         {
             GameMap map = adapter.getItem(i);
-            if (mapKey.equals(map.getKey()))
+            if (mapKey.equals(map.getName()))
             {
                 maps.setSelection(i);
                 break;

@@ -4,6 +4,8 @@
     <string name="map_gta_3_packages">(GTA 3) packages</string>
     <string name="map_gta_3_rampages">(GTA 3) rampages</string>
     <string name="map_gta_3_missions">(GTA 3) missions</string>
+    <string name="map_gta_3_import_export">(GTA 3) import, export</string>
+    <string name="map_gta_3_rc_toys">(GTA 3) rc toys</string>
     <string name="map_gta_lcs_portland_others">(GTA LCS) Portland others</string>
     <string name="map_gta_lcs_portland_packages">(GTA LCS) Portland packages</string>
     <string name="map_gta_lcs_shoreside_others">(GTA LCS) Shoreside others</string>
@@ -33,5 +35,6 @@
     <string name="map_gta_sa_horseshoes">(GTA SA) horseshoes</string>
     <string name="map_gta_sa_oysters">(GTA SA) oysters</string>
     <string name="map_gta_sa_import_export">(GTA SA) import, export</string>
-    <string name="map_gta_sa_hidden_challenges">(GTA SA) hidden challenges</string>
+    <string name="map_gta_sa_racing">(GTA SA) racing</string>
+    <string name="map_gta_sa_jumps">(GTA SA) jumps</string>
 </resources>

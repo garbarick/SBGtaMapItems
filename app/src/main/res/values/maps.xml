@@ -1,40 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE resources [
+    <!ENTITY gta_3 "GTA 3">
+    <!ENTITY gta_lcs "GTA LCS">
+    <!ENTITY gta_vc "GTA VC">
+    <!ENTITY gta_vcs "GTA VCS">
+    <!ENTITY gta_ctw "GTA CTW">
+    <!ENTITY gta_sa "GTA SA">
+    <!ENTITY gta_sc "GTA SC">
+    <!ENTITY gta_fr "GTA FR">
+]>
 <resources>
-    <string name="map_gta_3_jumps">(GTA 3) jumps</string>
-    <string name="map_gta_3_packages">(GTA 3) packages</string>
-    <string name="map_gta_3_rampages">(GTA 3) rampages</string>
-    <string name="map_gta_3_missions">(GTA 3) missions</string>
-    <string name="map_gta_3_import_export">(GTA 3) import, export</string>
-    <string name="map_gta_3_rc_toys">(GTA 3) rc toys</string>
-    <string name="map_gta_lcs_portland_others">(GTA LCS) Portland others</string>
-    <string name="map_gta_lcs_portland_packages">(GTA LCS) Portland packages</string>
-    <string name="map_gta_lcs_shoreside_others">(GTA LCS) Shoreside others</string>
-    <string name="map_gta_lcs_shoreside_packages">(GTA LCS) Shoreside packages</string>
-    <string name="map_gta_lcs_staunton_others">(GTA LCS) Staunton others</string>
-    <string name="map_gta_lcs_staunton_packages">(GTA LCS) Staunton packages</string>
-    <string name="map_gta_vc_jumps">(GTA VC) jumps</string>
-    <string name="map_gta_vc_packages">(GTA VC) packages</string>
-    <string name="map_gta_vc_rampages">(GTA VC) rampages</string>
-    <string name="map_gta_vc_missions">(GTA VC) missions</string>
-    <string name="map_gta_vcs_balloons">(GTA VCS) balloons</string>
-    <string name="map_gta_vcs_jumps">(GTA VCS) jumps</string>
-    <string name="map_gta_vcs_rampages">(GTA VCS) rampages</string>
-    <string name="map_gta_ctw">(GTA CTW) all items</string>
-    <string name="map_gta_sindacco_chronicles_jumps">(GTA SC) jumps</string>
-    <string name="map_gta_sindacco_chronicles_missions">(GTA SC) missions</string>
-    <string name="map_gta_sindacco_chronicles_packages">(GTA SC) packages</string>
-    <string name="map_gta_sindacco_chronicles_properties">(GTA SC) properties</string>
-    <string name="map_gta_sindacco_chronicles_snapshots">(GTA SC) snapshots</string>
-    <string name="map_gta_sindacco_chronicles_rampages">(GTA SC) rampages</string>
-    <string name="map_gta_forelli_redemption_jumps">(GTA FR) jumps</string>
-    <string name="map_gta_forelli_redemption_missions">(GTA FR) missions</string>
-    <string name="map_gta_forelli_redemption_packages">(GTA FR) packages</string>
-    <string name="map_gta_forelli_redemption_rampages">(GTA FR) rampages</string>
-    <string name="map_gta_sa_spray_tags">(GTA SA) spray tags</string>
-    <string name="map_gta_sa_snapshots">(GTA SA) snapshots</string>
-    <string name="map_gta_sa_horseshoes">(GTA SA) horseshoes</string>
-    <string name="map_gta_sa_oysters">(GTA SA) oysters</string>
-    <string name="map_gta_sa_import_export">(GTA SA) import, export</string>
-    <string name="map_gta_sa_racing">(GTA SA) racing</string>
-    <string name="map_gta_sa_jumps">(GTA SA) jumps</string>
+    <string name="map_gta_3_jumps">&gta_3;/Jumps</string>
+    <string name="map_gta_3_packages">&gta_3;/Packages</string>
+    <string name="map_gta_3_rampages">&gta_3;/Rampages</string>
+    <string name="map_gta_3_missions">&gta_3;/Missions</string>
+    <string name="map_gta_3_import_export">&gta_3;/Import, export</string>
+    <string name="map_gta_3_rc_toys">&gta_3;/RC toys</string>
+    <string name="map_gta_lcs_portland_others">&gta_lcs;/Portland others</string>
+    <string name="map_gta_lcs_portland_packages">&gta_lcs;/Portland packages</string>
+    <string name="map_gta_lcs_shoreside_others">&gta_lcs;/Shoreside others</string>
+    <string name="map_gta_lcs_shoreside_packages">&gta_lcs;/Shoreside packages</string>
+    <string name="map_gta_lcs_staunton_others">&gta_lcs;/Staunton others</string>
+    <string name="map_gta_lcs_staunton_packages">&gta_lcs;/Staunton packages</string>
+    <string name="map_gta_vc_jumps">&gta_vc;/Jumps</string>
+    <string name="map_gta_vc_packages">&gta_vc;/Packages</string>
+    <string name="map_gta_vc_rampages">&gta_vc;/Rampages</string>
+    <string name="map_gta_vc_missions">&gta_vc;/Missions</string>
+    <string name="map_gta_vcs_balloons">&gta_vcs;/Balloons</string>
+    <string name="map_gta_vcs_jumps">&gta_vcs;/Jumps</string>
+    <string name="map_gta_vcs_rampages">&gta_vcs;/Rampages</string>
+    <string name="map_gta_ctw">&gta_ctw;/all items</string>
+    <string name="map_gta_sindacco_chronicles_jumps">&gta_sc;/Jumps</string>
+    <string name="map_gta_sindacco_chronicles_missions">&gta_sc;/Missions</string>
+    <string name="map_gta_sindacco_chronicles_packages">&gta_sc;/Packages</string>
+    <string name="map_gta_sindacco_chronicles_properties">&gta_sc;/Properties</string>
+    <string name="map_gta_sindacco_chronicles_snapshots">&gta_sc;/Snapshots</string>
+    <string name="map_gta_sindacco_chronicles_rampages">&gta_sc;/Rampages</string>
+    <string name="map_gta_forelli_redemption_jumps">&gta_fr;/Jumps</string>
+    <string name="map_gta_forelli_redemption_missions">&gta_fr;/Missions</string>
+    <string name="map_gta_forelli_redemption_packages">&gta_fr;/Packages</string>
+    <string name="map_gta_forelli_redemption_rampages">&gta_fr;/Rampages</string>
+    <string name="map_gta_sa_spray_tags">&gta_sa;/Spray tags</string>
+    <string name="map_gta_sa_snapshots">&gta_sa;/Snapshots</string>
+    <string name="map_gta_sa_horseshoes">&gta_sa;/Horseshoes</string>
+    <string name="map_gta_sa_oysters">&gta_sa;/Oysters</string>
+    <string name="map_gta_sa_import_export">&gta_sa;/Import, export</string>
+    <string name="map_gta_sa_racing">&gta_sa;/Racing</string>
+    <string name="map_gta_sa_jumps">&gta_sa;/Jumps</string>
 </resources>

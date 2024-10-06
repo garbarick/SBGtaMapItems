@@ -121,7 +121,7 @@ public class JsonTools
                 {
                     continue;
                 }
-                result.put(map.getName(), toJson(checks));
+                result.put(map.getKey(), toJson(checks));
             }
         }
         catch (Exception e)

@@ -7,16 +7,15 @@ import ru.net.serbis.gtamapitems.data.*;
 import ru.net.serbis.utils.*;
 
 import ru.net.serbis.gtamapitems.R;
+import android.content.*;
+import android.graphics.drawable.*;
 
-public class Maps
+public class Maps extends Util
 {
     private static final Maps instance = new Maps();
 
-    private List<GameMap> items = new ArrayList<GameMap>();
-
-    private Maps()
-    {
-    }
+    private Map<String, GameMap> items = new TreeMap<String, GameMap>();
+    private Map<String, GameFolder> folders = new TreeMap<String, GameFolder>();
 
     public static Maps get()
     {
@@ -25,27 +24,18 @@ public class Maps
 
     public Map<String, GameMap> getItems()
     {
+        return items;
+    }
+
+    @Override
+    public void set(Context context)
+    {
+        super.set(context);
         collectItems();
-        Map<String, GameMap> result = new LinkedHashMap<String, GameMap>();
-        for (GameMap map : items)
-        {
-            String checks = Preferences.get().getString(map.getName(), "[]");
-            map.setChecks(new JsonTools().parseChecks(checks));
-
-            String values = Preferences.get().getString(map.getKeyValues(), "[]");
-            map.setValues(new JsonTools().parseValues(values));
-
-            result.put(map.getName(), map);
-        }
-        return result;
     }
 
     private void collectItems()
     {
-        if (!items.isEmpty())
-        {
-            return;
-        }
         Map<String, Integer> pictures = Reflection.get().getValues(R.drawable.class, int.class);
         Map<String, Integer> games = getGames(pictures);
         Map<String, Integer> strings = Reflection.get().getValues(R.string.class, int.class);
@@ -59,9 +49,10 @@ public class Maps
                 for (Map.Entry<String, Integer> entryGame : games.entrySet())
                 {
                     String game = entryGame.getKey();
-                    if (name.startsWith("map_" + game + "_"))
+                    if (name.startsWith("map_" + game + "_") &&
+                        isSameSize(entryGame.getValue(), entry.getValue()))
                     {
-                        items.add(new GameMap(name, strings.get(name), entryGame.getValue(), entry.getValue()));
+                        addItem(new GameMap(name, strings.get(name), entryGame.getValue(), entry.getValue()));
                         withLayer = true;
                         break;
                     }
@@ -70,10 +61,9 @@ public class Maps
                 {
                     continue;
                 }
-                items.add(new GameMap(name, strings.get(name), entry.getValue()));
+                addItem(new GameMap(name, strings.get(name), entry.getValue()));
             }
         }
-        Collections.sort(items);
     }
 
     private Map<String, Integer> getGames(Map<String, Integer> pictures)
@@ -91,5 +81,64 @@ public class Maps
             }
         }
         return result;
+    }
+
+    private void addItem(GameMap item)
+    {
+        String checks = Preferences.get().getString(item.getKey(), "[]");
+        item.setChecks(new JsonTools().parseChecks(checks));
+
+        String values = Preferences.get().getString(item.getKeyValues(), "[]");
+        item.setValues(new JsonTools().parseValues(values));
+
+        items.put(item.getKey(), item);
+
+        String parent = item.getParent();
+        if (!folders.containsKey(parent))
+        {
+            folders.put(parent, new GameFolder(parent));
+        }
+        folders.get(parent).add();
+    }
+
+    public Collection<GameFolder> getFolders()
+    {
+        return folders.values();
+    }
+
+    public Collection<GameMap> getItems(GameFolder folder)
+    {
+        List<GameMap> result = new ArrayList<GameMap>();
+        for (GameMap item : items.values())
+        {
+            if (folder.getName().equals(item.getParent()))
+            {
+                result.add(item);
+            }
+        }
+        return result;
+    }
+
+    public GameMap get(String key)
+    {
+        return items.get(key);
+    }
+
+    public GameMap getLast()
+    {
+        return get(Preferences.get().getString(Constants.LAST_MAP, ""));
+    }
+
+    public void setLast(GameMap map)
+    {
+        Preferences.get().setString(Constants.LAST_MAP, map.getKey());
+    }
+
+    private boolean isSameSize(int pictureId, int layerId)
+    {
+        Drawable picture = context.getDrawable(pictureId);
+        Drawable layer = context.getDrawable(layerId);
+        return picture.getIntrinsicHeight() == layer.getIntrinsicHeight() &&
+            picture.getIntrinsicWidth() == layer.getIntrinsicWidth();
     }
 }

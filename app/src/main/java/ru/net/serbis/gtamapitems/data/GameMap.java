@@ -4,31 +4,31 @@ import java.util.*;
 import ru.net.serbis.gtamapitems.util.*;
 import ru.net.serbis.utils.*;
 
-public class GameMap implements Comparable<GameMap>
+public class GameMap
 {
-    protected String name;
+    protected String key;
     protected int id;
     protected int pictureId;
     protected int layerId;
     private List<Check> checks = new ArrayList<Check>();
     private float[] values;
 
-    public GameMap(String name, int id, int pictureId, int layerId)
+    public GameMap(String key, int id, int pictureId, int layerId)
     {
-        this.name = name;
+        this.key = key;
         this.id = id;
         this.pictureId = pictureId;
         this.layerId = layerId;
     }
 
-    public GameMap(String name, int id, int pictureId)
+    public GameMap(String key, int id, int pictureId)
     {
-        this(name, id, pictureId, 0);
+        this(key, id, pictureId, 0);
     }
 
-    public String getName()
+    public String getKey()
     {
-        return name;
+        return key;
     }
 
     public int getPictureId()
@@ -57,8 +57,7 @@ public class GameMap implements Comparable<GameMap>
         return checks.size();
     }
 
-    @Override
-    public String toString()
+    public String getFullName()
     {
         String result = Strings.get().get(id);
         int count = getCount();
@@ -76,7 +75,7 @@ public class GameMap implements Comparable<GameMap>
 
     public void saveChecks()
     {
-        Preferences.get().setString(name, new JsonTools().toJson(checks).toString());
+        Preferences.get().setString(key, new JsonTools().toJson(checks).toString());
     }
 
     public float[] getValues()
@@ -86,7 +85,7 @@ public class GameMap implements Comparable<GameMap>
 
     public String getKeyValues()
     {
-        return name + "#values";
+        return key + "#values";
     }
 
     public void saveValues()
@@ -94,9 +93,13 @@ public class GameMap implements Comparable<GameMap>
         Preferences.get().setString(getKeyValues(), new JsonTools().toJson(getValues()).toString());
     }
 
-    @Override
-    public int compareTo(GameMap that)
+    public String getName()
     {
-        return name.compareTo(that.name);
+        return getFullName().split("/")[1];
+    }
+
+    public String getParent()
+    {
+        return getFullName().split("/")[0];
     }
 }

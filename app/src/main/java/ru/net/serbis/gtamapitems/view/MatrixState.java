@@ -2,6 +2,7 @@ package ru.net.serbis.gtamapitems.view;
 
 import android.graphics.*;
 import android.view.*;
+import android.graphics.drawable.*;
 
 public class MatrixState
 {
@@ -153,7 +154,12 @@ public class MatrixState
 
     public void fitWidth()
     {
-        Rect rect = imageMap.getDrawable().getBounds();
+        Drawable image = imageMap.getDrawable();
+        if (image == null)
+        {
+            return;
+        }
+        Rect rect = image.getBounds();
         float imageWidth = rect.width();
         float scale = imageMap.parent().getWidth() / imageWidth;
         scale /= getScale();

@@ -4,6 +4,7 @@ import android.app.*;
 import android.view.*;
 import android.widget.*;
 import ru.net.serbis.gtamapitems.*;
+import ru.net.serbis.gtamapitems.data.*;
 import ru.net.serbis.gtamapitems.dialog.*;
 import ru.net.serbis.gtamapitems.popup.*;
 import ru.net.serbis.gtamapitems.util.*;
@@ -16,40 +17,26 @@ public class ButtonsListener implements View.OnClickListener, CheckBoxesPopup.On
 {
     private Activity context;
     private ImageMap imageMap;
-    private CheckBoxesPopup popup;
+    private CheckBoxesPopup checkBoxPopup;
+    private MapsPopup mapsPopup;
 
     public ButtonsListener(Activity context)
     {
         this.context = context;
         imageMap = UITool.get().findView(context, R.id.map);
-        initButtons();
+        LinearLayout main = UITool.get().findView(context, R.id.main);
+        UITool.get().initAllButtons(main, this);
         initPopup();
-    }
-
-    private void initButtons()
-    {
-        initButton(R.id.check);
-        initButton(R.id.erase);
-        initButton(R.id.original_size);
-        initButton(R.id.fit);
-        initButton(R.id.zoom_in);
-        initButton(R.id.zoom_out);
-        initButton(R.id.clean_up);
-        initButton(R.id.export_checks);
-        initButton(R.id.import_checks);
-        initButton(R.id.info);
-    }
-
-    private void initButton(int id)
-    {
-        ImageButton button = UITool.get().findView(context, id);
-        button.setOnClickListener(this);
     }
 
     private void initPopup()
     {
-        popup = new CheckBoxesPopup(context);
-        popup.setOnChangeCheckTypeListener(this);
+        checkBoxPopup = new CheckBoxesPopup(context);
+        checkBoxPopup.setOnChangeCheckTypeListener(this);
+
+        Button maps = UITool.get().findView(context, R.id.maps);
+        mapsPopup = new MapsPopup(context, maps);
+        mapsPopup.setOnMenuItemClickListener(new MapSelectListener(context));
     }
 
     @Override
@@ -87,6 +74,9 @@ public class ButtonsListener implements View.OnClickListener, CheckBoxesPopup.On
             case R.id.info:
                 new InfoDialog(context);
                 break;
+            case R.id.maps:
+                mapsPopup.show();
+                break;
         }
     }
 
@@ -99,8 +89,8 @@ public class ButtonsListener implements View.OnClickListener, CheckBoxesPopup.On
         }
         else
         {
-            popup.updateCounts(imageMap.getChecks());
-            popup.show(button);
+            checkBoxPopup.updateCounts(imageMap.getChecks());
+            checkBoxPopup.show(button);
         }
     }
 

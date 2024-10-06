@@ -4,6 +4,7 @@ import android.app.*;
 import android.content.*;
 import ru.net.serbis.gtamapitems.activity.*;
 import ru.net.serbis.utils.*;
+import ru.net.serbis.gtamapitems.util.*;
 
 public class App extends Application
 {
@@ -17,6 +18,7 @@ public class App extends Application
         Preferences.get().setApp(Constants.APP);
         Strings.get().set(context);
         UITool.get().set(context);
+        Maps.get().set(context);
         ExceptionHandler.get().set(context);
         ExceptionHandler.get().setErrorActivity(ExceptionReport.class);
     }

@@ -3,17 +3,19 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:orientation="vertical">
+	android:orientation="vertical"
+    android:id="@+id/main">
 
 	<LinearLayout
 		android:orientation="horizontal"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content">
 
-		<Spinner
+		<Button
 			android:layout_width="wrap_content"
 			android:id="@+id/maps"
-			android:layout_height="match_parent"/>
+			android:layout_height="match_parent"
+            android:textAllCaps="false"/>
 
 		<ru.net.serbis.gtamapitems.view.ButtonsView
 			android:layout_width="match_parent"

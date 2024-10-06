@@ -1,52 +1,77 @@
 package ru.net.serbis.gtamapitems.listener;
 
 import android.app.*;
+import android.content.*;
 import android.view.*;
 import android.widget.*;
 import ru.net.serbis.gtamapitems.*;
-import ru.net.serbis.gtamapitems.adapter.*;
 import ru.net.serbis.gtamapitems.data.*;
+import ru.net.serbis.gtamapitems.util.*;
 import ru.net.serbis.gtamapitems.view.*;
 import ru.net.serbis.utils.*;
 
 import ru.net.serbis.gtamapitems.R;
 
-public class MapSelectListener implements AdapterView.OnItemSelectedListener
+public class MapSelectListener implements PopupMenu.OnMenuItemClickListener, ImageMap.OnChangeListener
 {
     private Activity context;
-    private MapsAdapter adapter;
     private ImageMap imageMap;
     private GameMap current;
+    private Button maps;
 
-    public MapSelectListener(Activity context, MapsAdapter adapter)
+    public MapSelectListener(Activity context)
     {
         this.context = context;
-        this.adapter = adapter;
         imageMap = UITool.get().findView(context, R.id.map);
+        imageMap.setOnChangeCheckingListener(this);
+        maps = UITool.get().findView(context, R.id.maps);
+
+        current = Maps.get().getLast();
+        apply();
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
+    public boolean onMenuItemClick(MenuItem menuItem)
     {
+        Intent intent = menuItem.getIntent();
+        if (intent == null)
+        {
+            return false;
+        }
         if (current != null)
         {
             current.setValues(imageMap.getMatrixValues());
             current.saveValues();
         }
+        current = Maps.get().get(intent.getAction());
+        apply();
+        Maps.get().setLast(current);
 
-        GameMap map = adapter.getItem(pos);
-        imageMap.setImageResource(map.getPictureId());
-        imageMap.setLayer(map.getLayerId());
-        imageMap.setChecks(map.getChecks());
+        return false;
+    }
+
+    private void apply()
+    {
+        imageMap.setImageResource(current.getPictureId());
+        imageMap.setLayer(current.getLayerId());
+        imageMap.setChecks(current.getChecks());
         imageMap.reset(false);
-        imageMap.setMatrixValues(map.getValues());
-
-        Preferences.get().setString(Constants.LAST_MAP, map.getName());
-        current = map;
+        imageMap.setMatrixValues(current.getValues());
+        maps.setText(current.getFullName());
+    }
+    
+    @Override
+    public void onChangeChecking(ImageMap view)
+    {
+        current.setChecks(view.getChecks());
+        current.saveChecks();
+        maps.setText(current.getFullName());
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> parent)
+    public void onChangeMatrixValues(ImageMap view)
     {
+        current.setValues(view.getMatrixValues());
+        current.saveValues();
     }
 }

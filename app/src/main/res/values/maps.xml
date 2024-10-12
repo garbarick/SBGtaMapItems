@@ -14,8 +14,6 @@
     <string name="map_gta_3_packages">&gta_3;/Packages</string>
     <string name="map_gta_3_rampages">&gta_3;/Rampages</string>
     <string name="map_gta_3_missions">&gta_3;/Missions</string>
-    <string name="map_gta_3_import_export">&gta_3;/Import, export</string>
-    <string name="map_gta_3_rc_toys">&gta_3;/RC toys</string>
     <string name="map_gta_lcs_portland_others">&gta_lcs;/Portland others</string>
     <string name="map_gta_lcs_portland_packages">&gta_lcs;/Portland packages</string>
     <string name="map_gta_lcs_shoreside_others">&gta_lcs;/Shoreside others</string>
@@ -45,6 +43,5 @@
     <string name="map_gta_sa_horseshoes">&gta_sa;/Horseshoes</string>
     <string name="map_gta_sa_oysters">&gta_sa;/Oysters</string>
     <string name="map_gta_sa_import_export">&gta_sa;/Import, export</string>
-    <string name="map_gta_sa_racing">&gta_sa;/Racing</string>
     <string name="map_gta_sa_jumps">&gta_sa;/Jumps</string>
 </resources>

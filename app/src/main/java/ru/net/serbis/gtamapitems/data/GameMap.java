@@ -1,5 +1,6 @@
 package ru.net.serbis.gtamapitems.data;
 
+import android.view.*;
 import java.util.*;
 import ru.net.serbis.gtamapitems.util.*;
 import ru.net.serbis.utils.*;
@@ -12,6 +13,7 @@ public class GameMap
     protected int layerId;
     private List<Check> checks = new ArrayList<Check>();
     private float[] values;
+    private MenuItem item;
 
     public GameMap(String key, int id, int pictureId, int layerId)
     {
@@ -101,5 +103,15 @@ public class GameMap
     public String getParent()
     {
         return getFullName().split("/")[0];
+    }
+
+    public void setItem(MenuItem item)
+    {
+        this.item = item;
+    }
+
+    public MenuItem getItem()
+    {
+        return item;
     }
 }

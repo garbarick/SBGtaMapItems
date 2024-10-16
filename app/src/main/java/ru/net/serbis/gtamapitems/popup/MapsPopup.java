@@ -32,6 +32,7 @@ public class MapsPopup extends PopupMenu
                 {
                     first = map;
                 }
+                map.setItem(item);
                 item.setIntent(new Intent(map.getKey()));
             }
         }

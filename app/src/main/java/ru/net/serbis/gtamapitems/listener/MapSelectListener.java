@@ -66,6 +66,7 @@ public class MapSelectListener implements PopupMenu.OnMenuItemClickListener, Ima
         current.setChecks(view.getChecks());
         current.saveChecks();
         maps.setText(current.getFullName());
+        current.getItem().setTitle(current.getName());
     }
 
     @Override

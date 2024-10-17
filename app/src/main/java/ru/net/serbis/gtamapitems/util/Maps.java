@@ -1,5 +1,7 @@
 package ru.net.serbis.gtamapitems.util;
 
+import android.content.*;
+import android.graphics.*;
 import java.util.*;
 import java.util.regex.*;
 import ru.net.serbis.gtamapitems.*;
@@ -7,8 +9,6 @@ import ru.net.serbis.gtamapitems.data.*;
 import ru.net.serbis.utils.*;
 
 import ru.net.serbis.gtamapitems.R;
-import android.content.*;
-import android.graphics.drawable.*;
 
 public class Maps extends Util
 {
@@ -86,10 +86,10 @@ public class Maps extends Util
     private void addItem(GameMap item)
     {
         String checks = Preferences.get().getString(item.getKey(), "[]");
-        item.setChecks(new JsonTools().parseChecks(checks));
+        item.setChecks(JsonTools.get().parseChecks(checks));
 
         String values = Preferences.get().getString(item.getKeyValues(), "[]");
-        item.setValues(new JsonTools().parseValues(values));
+        item.setValues(JsonTools.get().parseValues(values));
 
         items.put(item.getKey(), item);
 
@@ -98,25 +98,12 @@ public class Maps extends Util
         {
             folders.put(parent, new GameFolder(parent));
         }
-        folders.get(parent).add();
+        folders.get(parent).add(item);
     }
 
     public Collection<GameFolder> getFolders()
     {
         return folders.values();
-    }
-
-    public Collection<GameMap> getItems(GameFolder folder)
-    {
-        List<GameMap> result = new ArrayList<GameMap>();
-        for (GameMap item : items.values())
-        {
-            if (folder.getName().equals(item.getParent()))
-            {
-                result.add(item);
-            }
-        }
-        return result;
     }
 
     public GameMap get(String key)
@@ -136,9 +123,16 @@ public class Maps extends Util
 
     private boolean isSameSize(int pictureId, int layerId)
     {
-        Drawable picture = context.getDrawable(pictureId);
-        Drawable layer = context.getDrawable(layerId);
-        return picture.getIntrinsicHeight() == layer.getIntrinsicHeight() &&
-            picture.getIntrinsicWidth() == layer.getIntrinsicWidth();
+        Point picture = getSize(pictureId);
+        Point layer = getSize(layerId);
+        return picture.x == layer.x && picture.y == layer.y;
+    }
+
+    private Point getSize(int pictureId)
+    {
+        BitmapFactory.Options dimensions = new BitmapFactory.Options(); 
+        dimensions.inJustDecodeBounds = true;
+        BitmapFactory.decodeResource(context.getResources(), pictureId, dimensions);
+        return new Point(dimensions.outWidth, dimensions.outHeight);
     }
 }

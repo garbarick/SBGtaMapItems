@@ -18,6 +18,7 @@ public class App extends Application
         Preferences.get().setApp(Constants.APP);
         Strings.get().set(context);
         UITool.get().set(context);
+        JsonTools.get().set(context);
         Maps.get().set(context);
         ExceptionHandler.get().set(context);
         ExceptionHandler.get().setErrorActivity(ExceptionReport.class);

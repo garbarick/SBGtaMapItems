@@ -77,7 +77,7 @@ public class GameMap
 
     public void saveChecks()
     {
-        Preferences.get().setString(key, new JsonTools().toJson(checks).toString());
+        Preferences.get().setString(key, JsonTools.get().toJson(checks, false).toString());
     }
 
     public float[] getValues()
@@ -92,7 +92,7 @@ public class GameMap
 
     public void saveValues()
     {
-        Preferences.get().setString(getKeyValues(), new JsonTools().toJson(getValues()).toString());
+        Preferences.get().setString(getKeyValues(), JsonTools.get().toJson(getValues()).toString());
     }
 
     public String getName()

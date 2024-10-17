@@ -1,5 +1,6 @@
 package ru.net.serbis.gtamapitems.util;
 
+import android.util.*;
 import java.text.*;
 import java.util.*;
 import org.json.*;
@@ -7,9 +8,22 @@ import ru.net.serbis.gtamapitems.*;
 import ru.net.serbis.gtamapitems.data.*;
 import ru.net.serbis.utils.*;
 
-public class JsonTools
+import ru.net.serbis.utils.Log;
+
+public class JsonTools extends Util
 {
-    public JSONArray toJson(List<Check> checks)
+    private static final JsonTools instance = new JsonTools();
+
+    public static JsonTools get()
+    {
+        return instance;
+    }
+
+    private JsonTools()
+    {
+    }
+
+    public JSONArray toJson(List<Check> checks, boolean convert)
     {
         JSONArray result = new JSONArray();
         try
@@ -17,8 +31,15 @@ public class JsonTools
             for (Check check : checks)
             {
                 JSONObject item = new JSONObject();
-                item.put("x", check.x);
-                item.put("y", check.y);
+                int x = check.x;
+                int y = check.y;
+                if (convert)
+                {
+                    x = pixelsToDp(x);
+                    y = pixelsToDp(y);
+                }
+                item.put("x", x);
+                item.put("y", y);
                 item.put("t", check.type);
                 result.put(item);
             }
@@ -36,7 +57,7 @@ public class JsonTools
         try
         {
             JSONArray items = new JSONArray(json);
-            result.addAll(parseChecks(items));
+            result.addAll(parseChecks(items, false));
         }
         catch (Exception e)
         {
@@ -45,7 +66,7 @@ public class JsonTools
         return result;
     }
 
-    public List<Check> parseChecks(JSONArray items)
+    private List<Check> parseChecks(JSONArray items, boolean convert)
     {
         List<Check> result = new ArrayList<Check>();
         try
@@ -53,7 +74,14 @@ public class JsonTools
             for (int i = 0; i < items.length(); i++)
             {
                 JSONObject item = items.getJSONObject(i);
-                Check check = new Check(getInt(item, "x"), getInt(item, "y"), getInt(item, "t"));
+                int x = getInt(item, "x");
+                int y = getInt(item, "y");
+                if (convert)
+                {
+                    x = dpToPixel(x);
+                    y = dpToPixel(y);
+                }
+                Check check = new Check(x, y, getInt(item, "t"));
                 result.add(check);
             }
         }
@@ -68,7 +96,7 @@ public class JsonTools
     {
         return item.has(key) ? item.getInt(key) : 0;
     }
-
+    
     public JSONArray toJson(float[] data)
     {
         JSONArray result = new JSONArray();
@@ -121,7 +149,7 @@ public class JsonTools
                 {
                     continue;
                 }
-                result.put(map.getKey(), toJson(checks));
+                result.put(map.getKey(), toJson(checks, true));
             }
         }
         catch (Exception e)
@@ -144,7 +172,7 @@ public class JsonTools
                 if (maps.containsKey(key))
                 {
                     JSONArray array = object.getJSONArray(key);
-                    List<Check> checks = parseChecks(array);
+                    List<Check> checks = parseChecks(array, true);
                     GameMap map = maps.get(key);
                     map.setChecks(checks);
                     map.saveChecks();
@@ -164,5 +192,15 @@ public class JsonTools
     {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
         return Constants.APP + "-" + format.format(new Date()) + Constants.JSON_EXT;
+    }
+
+    private int dpToPixel(float dp)
+    {
+        return new Double(dp * context.getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT).intValue();
+    }
+
+    private int pixelsToDp(int px)
+    {
+        return new Double(px / ((float) context.getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT)).intValue();
     }
 }

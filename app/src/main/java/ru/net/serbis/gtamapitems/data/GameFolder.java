@@ -1,9 +1,10 @@
 package ru.net.serbis.gtamapitems.data;
+import java.util.*;
 
 public class GameFolder
 {
     private String name;
-    private int count;
+    private List<GameMap> games = new ArrayList<GameMap>();
 
     public GameFolder(String name)
     {
@@ -17,15 +18,20 @@ public class GameFolder
 
     public String getFullName()
     {
-        if (count > 0)
+        if (games.size() > 0)
         {
-            return name + " (" + count + ")";
+            return name + " (" + games.size() + ")";
         }
         return name;
     }
 
-    public void add()
+    public void add(GameMap game)
     {
-        count ++;
+        games.add(game);
+    }
+
+    public List<GameMap> getGames()
+    {
+        return games;
     }
 }

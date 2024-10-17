@@ -31,8 +31,8 @@ public class ExportImport
         {
             return;
         }
-        File file = new File(IOTool.get().getExternalFile("backups"), new JsonTools().getJsonName());
-        IOTool.get().copy(new JsonTools().toJson(Maps.get().getItems().values()), file);
+        File file = new File(IOTool.get().getExternalFile("backups"), JsonTools.get().getJsonName());
+        IOTool.get().copy(JsonTools.get().toJson(Maps.get().getItems().values()), file);
         UITool.get().toast(file.getAbsolutePath());
     }
 
@@ -48,7 +48,7 @@ public class ExportImport
             @Override
             public void onChoose(String path)
             {
-                if (new JsonTools().parseMapChecks(IOTool.get().readFile(new File(path), 10240)))
+                if (JsonTools.get().parseMapChecks(IOTool.get().readFile(new File(path), 10240)))
                 {
                     ((Main) context).notifyDataSetChanged();
                     UITool.get().toast(R.string.done);

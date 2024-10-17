@@ -25,7 +25,7 @@ public class MapsPopup extends PopupMenu
         {
             SubMenu subMenu = menu.addSubMenu(folder.getFullName());
             subMenu.setHeaderTitle(folder.getName());
-            for (GameMap map : Maps.get().getItems(folder))
+            for (GameMap map : folder.getGames())
             {
                 MenuItem item = subMenu.add(map.getName());
                 if (first == null)

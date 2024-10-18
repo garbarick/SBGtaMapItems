@@ -1,7 +1,6 @@
 package ru.net.serbis.gtamapitems.util;
 
 import android.content.*;
-import android.graphics.*;
 import java.util.*;
 import java.util.regex.*;
 import ru.net.serbis.gtamapitems.*;
@@ -36,32 +35,43 @@ public class Maps extends Util
 
     private void collectItems()
     {
+        Pattern layer = Pattern.compile("(map_.*?)_layer");
         Map<String, Integer> pictures = Reflection.get().getValues(R.drawable.class, int.class);
         Map<String, Integer> games = getGames(pictures);
         Map<String, Integer> strings = Reflection.get().getValues(R.string.class, int.class);
         for (Map.Entry<String, Integer> entry : pictures.entrySet())
         {
             String name = entry.getKey();
+            int pictureId = entry.getValue();
+            boolean withLayer = false;
+
+            Matcher matcher = layer.matcher(name);
+            if (matcher.matches())
+            {
+                name = matcher.group(1);
+                withLayer = true;
+            }
             if (name.startsWith("map_") &&
                 strings.containsKey(name))
             {
-                boolean withLayer = false;
-                for (Map.Entry<String, Integer> entryGame : games.entrySet())
-                {
-                    String game = entryGame.getKey();
-                    if (name.startsWith("map_" + game + "_") &&
-                        isSameSize(entryGame.getValue(), entry.getValue()))
-                    {
-                        addItem(new GameMap(name, strings.get(name), entryGame.getValue(), entry.getValue()));
-                        withLayer = true;
-                        break;
-                    }
-                }
                 if (withLayer)
                 {
-                    continue;
+                    for (Map.Entry<String, Integer> entryGame : games.entrySet())
+                    {
+                        String game = entryGame.getKey();
+                        int mainId = entryGame.getValue();
+
+                        if (name.startsWith("map_" + game + "_"))
+                        {
+                            addItem(new GameMap(name, strings.get(name), mainId, pictureId));
+                            break;
+                        }
+                    }
                 }
-                addItem(new GameMap(name, strings.get(name), entry.getValue()));
+                else
+                {
+                    addItem(new GameMap(name, strings.get(name), pictureId));
+                }
             }
         }
     }
@@ -119,20 +129,5 @@ public class Maps extends Util
     public void setLast(GameMap map)
     {
         Preferences.get().setString(Constants.LAST_MAP, map.getKey());
-    }
-
-    private boolean isSameSize(int pictureId, int layerId)
-    {
-        Point picture = getSize(pictureId);
-        Point layer = getSize(layerId);
-        return picture.x == layer.x && picture.y == layer.y;
-    }
-
-    private Point getSize(int pictureId)
-    {
-        BitmapFactory.Options dimensions = new BitmapFactory.Options(); 
-        dimensions.inJustDecodeBounds = true;
-        BitmapFactory.decodeResource(context.getResources(), pictureId, dimensions);
-        return new Point(dimensions.outWidth, dimensions.outHeight);
     }
 }

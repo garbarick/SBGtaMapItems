@@ -35,12 +35,12 @@ public class Maps extends Util
 
     private void collectItems()
     {
-        Pattern layer = Pattern.compile("(map_.*?)_layer");
+        Pattern layer = Pattern.compile("(map_.*?)_layer_(.*)");
         Map<String, Integer> pictures = Reflection.get().getValues(R.drawable.class, int.class);
-        Map<String, Integer> games = getGames(pictures);
         Map<String, Integer> strings = Reflection.get().getValues(R.string.class, int.class);
         for (Map.Entry<String, Integer> entry : pictures.entrySet())
         {
+            String main = null;
             String name = entry.getKey();
             int pictureId = entry.getValue();
             boolean withLayer = false;
@@ -49,6 +49,7 @@ public class Maps extends Util
             if (matcher.matches())
             {
                 name = matcher.group(1);
+                main = matcher.group(2);
                 withLayer = true;
             }
             if (name.startsWith("map_") &&
@@ -56,17 +57,8 @@ public class Maps extends Util
             {
                 if (withLayer)
                 {
-                    for (Map.Entry<String, Integer> entryGame : games.entrySet())
-                    {
-                        String game = entryGame.getKey();
-                        int mainId = entryGame.getValue();
-
-                        if (name.startsWith("map_" + game + "_"))
-                        {
-                            addItem(new GameMap(name, strings.get(name), mainId, pictureId));
-                            break;
-                        }
-                    }
+                    int mainId = pictures.get(main);
+                    addItem(new GameMap(name, strings.get(name), mainId, pictureId));
                 }
                 else
                 {
@@ -74,23 +66,6 @@ public class Maps extends Util
                 }
             }
         }
-    }
-
-    private Map<String, Integer> getGames(Map<String, Integer> pictures)
-    {
-        Pattern main = Pattern.compile("map_(.*?)_main");
-        Map<String, Integer> result = new HashMap<String, Integer>();
-        for (Map.Entry<String, Integer> entry : pictures.entrySet())
-        {
-            String name = entry.getKey();
-            Matcher matcher = main.matcher(name);
-            if (matcher.matches())
-            {
-                String game = matcher.group(1);
-                result.put(game, entry.getValue());
-            }
-        }
-        return result;
     }
 
     private void addItem(GameMap item)

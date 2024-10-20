@@ -36,7 +36,7 @@ public class ButtonsListener implements View.OnClickListener, CheckBoxesPopup.On
 
         Button maps = UITool.get().findView(context, R.id.maps);
         mapsPopup = new MapsPopup(context, maps);
-        mapsPopup.setOnMenuItemClickListener(new MapSelectListener(context));
+        mapsPopup.setOnMenuItemClickListener(new MapSelectListener(context, mapsPopup));
     }
 
     @Override

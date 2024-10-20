@@ -6,6 +6,7 @@ import android.view.*;
 import android.widget.*;
 import ru.net.serbis.gtamapitems.*;
 import ru.net.serbis.gtamapitems.data.*;
+import ru.net.serbis.gtamapitems.popup.*;
 import ru.net.serbis.gtamapitems.util.*;
 import ru.net.serbis.gtamapitems.view.*;
 import ru.net.serbis.utils.*;
@@ -18,10 +19,12 @@ public class MapSelectListener implements PopupMenu.OnMenuItemClickListener, Ima
     private ImageMap imageMap;
     private GameMap current;
     private Button maps;
+    private MapsPopup popup;
 
-    public MapSelectListener(Activity context)
+    public MapSelectListener(Activity context, MapsPopup popup)
     {
         this.context = context;
+        this.popup = popup;
         imageMap = UITool.get().findView(context, R.id.map);
         imageMap.setOnChangeCheckingListener(this);
         maps = UITool.get().findView(context, R.id.maps);
@@ -43,11 +46,39 @@ public class MapSelectListener implements PopupMenu.OnMenuItemClickListener, Ima
             current.setValues(imageMap.getMatrixValues());
             current.saveValues();
         }
-        String action = intent.getAction();
-        current = Maps.get().get(action);
-        apply();
-        Maps.get().setLast(current);
-
+        final String action = intent.getAction();
+        if (Constants.PARENT.equals(action))
+        {
+            maps.post(
+                new Runnable()
+                {
+                    public void run()
+                    {
+                        popup.initMenuFolders();
+                        popup.show();
+                    }
+                }
+            );
+        }
+        else if (Maps.get().isFolder(action))
+        {
+            maps.post(
+                new Runnable()
+                {
+                    public void run()
+                    {
+                        popup.initMenuGames(action);
+                        popup.show();
+                    }
+                }
+            );
+        }
+        else if (Maps.get().isGame(action))
+        {
+            current = Maps.get().get(action);
+            apply();
+            Maps.get().setLast(current);
+        }
         return false;
     }
 
@@ -60,14 +91,14 @@ public class MapSelectListener implements PopupMenu.OnMenuItemClickListener, Ima
         imageMap.setMatrixValues(current.getValues());
         maps.setText(current.getFullName());
     }
-    
+
     @Override
     public void onChangeChecking(ImageMap view)
     {
         current.setChecks(view.getChecks());
         current.saveChecks();
         maps.setText(current.getFullName());
-        current.getItem().setTitle(current.getName());
+        current.setItemTitle();
     }
 
     @Override

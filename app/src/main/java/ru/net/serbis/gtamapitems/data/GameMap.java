@@ -110,8 +110,12 @@ public class GameMap
         this.item = item;
     }
 
-    public MenuItem getItem()
+    public void setItemTitle()
     {
-        return item;
+        if (item == null)
+        {
+            return;
+        }
+        item.setTitle(getName());
     }
 }

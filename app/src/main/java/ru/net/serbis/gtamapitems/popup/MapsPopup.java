@@ -7,7 +7,6 @@ import android.widget.*;
 import ru.net.serbis.gtamapitems.*;
 import ru.net.serbis.gtamapitems.data.*;
 import ru.net.serbis.gtamapitems.util.*;
-import ru.net.serbis.utils.*;
 
 public class MapsPopup extends PopupMenu
 {
@@ -19,43 +18,41 @@ public class MapsPopup extends PopupMenu
 
     private void init(Activity context)
     {
-        GameMap first = null;
-        Menu menu = getMenu();
-        for (GameFolder folder : Maps.get().getFolders())
-        {
-            SubMenu subMenu = menu.addSubMenu(folder.getFullName());
-            subMenu.setHeaderTitle(folder.getName());
-            for (GameMap map : folder.getGames())
-            {
-                add(subMenu, map);
-                if (first == null)
-                {
-                    first = map;
-                }
-            }
-        }
+        initMenuFolders();
         if (Maps.get().getLast() == null)
         {
+            GameMap first = Maps.get().getFolders().iterator().next().getGames().get(0);
             Maps.get().setLast(first);
         }
     }
 
-    private void add(SubMenu subMenu, GameMap map)
+    public void initMenuFolders()
     {
-        MenuItem item = add(subMenu, map.getName(), map.getKey());
-        map.setItem(item);
+        Menu menu = getMenu();
+        menu.clear();
+        for (GameFolder folder : Maps.get().getFolders())
+        {
+            add(folder.getFullName(), folder.getName());
+        }
     }
 
-    private MenuItem add(SubMenu subMenu, String name, String action)
+    public void initMenuGames(String folder)
     {
-        MenuItem item = subMenu.add(name);
+        Menu menu = getMenu();
+        menu.clear();
+        add(Constants.PARENT, Constants.PARENT);
+        for (GameMap map : Maps.get().getFolder(folder).getGames())
+        {
+            MenuItem item = add(map.getName(), map.getKey());
+            map.setItem(item);
+        }
+    }
+
+    private MenuItem add(String name, String action)
+    {
+        Menu menu = getMenu();
+        MenuItem item = menu.add(name);
         item.setIntent(new Intent(action));
         return item;
-    }
-
-    @Override
-    public void show()
-    {
-        super.show();
     }
 }

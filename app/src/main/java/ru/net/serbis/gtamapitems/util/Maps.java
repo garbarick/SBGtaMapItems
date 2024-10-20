@@ -105,4 +105,19 @@ public class Maps extends Util
     {
         Preferences.get().setString(Constants.LAST_MAP, map.getKey());
     }
+
+    public boolean isGame(String key)
+    {
+        return items.containsKey(key);
+    }
+
+    public boolean isFolder(String key)
+    {
+        return folders.containsKey(key);
+    }
+
+    public GameFolder getFolder(String key)
+    {
+        return folders.get(key);
+    }
 }

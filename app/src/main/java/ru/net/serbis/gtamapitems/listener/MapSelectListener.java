@@ -43,7 +43,8 @@ public class MapSelectListener implements PopupMenu.OnMenuItemClickListener, Ima
             current.setValues(imageMap.getMatrixValues());
             current.saveValues();
         }
-        current = Maps.get().get(intent.getAction());
+        String action = intent.getAction();
+        current = Maps.get().get(action);
         apply();
         Maps.get().setLast(current);
 

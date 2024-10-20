@@ -27,18 +27,35 @@ public class MapsPopup extends PopupMenu
             subMenu.setHeaderTitle(folder.getName());
             for (GameMap map : folder.getGames())
             {
-                MenuItem item = subMenu.add(map.getName());
+                add(subMenu, map);
                 if (first == null)
                 {
                     first = map;
                 }
-                map.setItem(item);
-                item.setIntent(new Intent(map.getKey()));
             }
         }
         if (Maps.get().getLast() == null)
         {
             Maps.get().setLast(first);
         }
+    }
+
+    private void add(SubMenu subMenu, GameMap map)
+    {
+        MenuItem item = add(subMenu, map.getName(), map.getKey());
+        map.setItem(item);
+    }
+
+    private MenuItem add(SubMenu subMenu, String name, String action)
+    {
+        MenuItem item = subMenu.add(name);
+        item.setIntent(new Intent(action));
+        return item;
+    }
+
+    @Override
+    public void show()
+    {
+        super.show();
     }
 }

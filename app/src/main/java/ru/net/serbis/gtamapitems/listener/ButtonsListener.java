@@ -4,7 +4,6 @@ import android.app.*;
 import android.view.*;
 import android.widget.*;
 import ru.net.serbis.gtamapitems.*;
-import ru.net.serbis.gtamapitems.data.*;
 import ru.net.serbis.gtamapitems.dialog.*;
 import ru.net.serbis.gtamapitems.popup.*;
 import ru.net.serbis.gtamapitems.util.*;

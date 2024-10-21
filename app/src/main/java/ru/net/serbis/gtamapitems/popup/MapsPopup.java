@@ -32,7 +32,8 @@ public class MapsPopup extends PopupMenu
         menu.clear();
         for (GameFolder folder : Maps.get().getFolders())
         {
-            add(folder.getFullName(), folder.getName());
+            SubMenu sub = menu.addSubMenu(folder.getFullName());
+            setAction(sub.getItem(), folder.getName());
         }
     }
 
@@ -51,7 +52,11 @@ public class MapsPopup extends PopupMenu
     private MenuItem add(String name, String action)
     {
         Menu menu = getMenu();
-        MenuItem item = menu.add(name);
+        return setAction(menu.add(name), action);
+    }
+    
+    private MenuItem setAction(MenuItem item, String action)
+    {
         item.setIntent(new Intent(action));
         return item;
     }

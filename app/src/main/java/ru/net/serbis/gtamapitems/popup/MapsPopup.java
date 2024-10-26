@@ -18,12 +18,12 @@ public class MapsPopup extends PopupMenu
 
     private void init(Activity context)
     {
-        initMenuFolders();
         if (Maps.get().getLast() == null)
         {
             GameMap first = Maps.get().getFolders().iterator().next().getGames().get(0);
             Maps.get().setLast(first);
         }
+        initMenuGames(Maps.get().getLast().getParent());
     }
 
     public void initMenuFolders()

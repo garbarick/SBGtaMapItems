@@ -12,7 +12,7 @@
 		android:layout_height="wrap_content"
         android:textAllCaps="false"/>
 
-	<ru.net.serbis.gtamapitems.view.ButtonsView
+	<ru.net.serbis.utils.view.ButtonsView
 		android:layout_width="match_parent"
 		android:layout_height="100dp"
 		android:columnCount="7"

@@ -9,6 +9,7 @@ import ru.net.serbis.gtamapitems.popup.*;
 import ru.net.serbis.gtamapitems.util.*;
 import ru.net.serbis.gtamapitems.view.*;
 import ru.net.serbis.utils.*;
+import ru.net.serbis.utils.dialog.*;
 
 import ru.net.serbis.gtamapitems.R;
 
@@ -71,7 +72,7 @@ public class ButtonsListener implements View.OnClickListener, CheckBoxesPopup.On
                 new ExportImport(context).importChecks();
                 break;
             case R.id.info:
-                new InfoDialog(context);
+                new InfoDialog(context, R.layout.buttons);
                 break;
             case R.id.maps:
                 mapsPopup.show();

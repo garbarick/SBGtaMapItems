@@ -13,7 +13,6 @@
     <string name="clean_up">Clean up</string>
     <string name="export_checks">Export checks</string>
     <string name="import_checks">Import checks</string>
-    <string name="info">Info</string>
     <string name="choose_file">Choose file</string>
     <string name="done">Done</string>
 </resources>

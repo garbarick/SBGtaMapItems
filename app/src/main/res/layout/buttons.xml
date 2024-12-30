@@ -2,8 +2,7 @@
 <GridLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:id="@+id/buttons">
+	android:layout_height="match_parent">
 
     <ImageButton
         android:layout_width="0dp"
@@ -13,7 +12,7 @@
         android:scaleType="centerInside"
         android:src="@drawable/original_size"
         android:id="@+id/original_size"
-        android:tooltipText="@string/original_size"/>
+        android:contentDescription="@string/original_size"/>
 
     <ImageButton
         android:layout_width="0dp"
@@ -23,7 +22,7 @@
         android:scaleType="centerInside"
         android:src="@drawable/fit"
         android:id="@+id/fit"
-        android:tooltipText="@string/fit"/>
+        android:contentDescription="@string/fit"/>
 
     <ImageButton
         android:layout_width="0dp"
@@ -33,7 +32,7 @@
         android:scaleType="centerInside"
         android:src="@drawable/zoom_in"
         android:id="@+id/zoom_in"
-        android:tooltipText="@string/zoom_in"/>
+        android:contentDescription="@string/zoom_in"/>
 
     <ImageButton
         android:layout_width="0dp"
@@ -43,7 +42,7 @@
         android:scaleType="centerInside"
         android:src="@drawable/zoom_out"
         android:id="@+id/zoom_out"
-        android:tooltipText="@string/zoom_out"/>
+        android:contentDescription="@string/zoom_out"/>
 
     <ImageButton
         android:layout_width="0dp"
@@ -53,7 +52,7 @@
         android:scaleType="centerInside"
         android:src="@drawable/check_selector"
         android:id="@+id/check"
-        android:tooltipText="@string/check"/>
+        android:contentDescription="@string/check"/>
 
     <ImageButton
         android:layout_width="0dp"
@@ -63,7 +62,7 @@
         android:scaleType="centerInside"
         android:src="@drawable/erase_selector"
         android:id="@+id/erase"
-        android:tooltipText="@string/erase"/>
+        android:contentDescription="@string/erase"/>
 
     <ImageButton
         android:layout_width="0dp"
@@ -73,7 +72,7 @@
         android:scaleType="centerInside"
         android:src="@drawable/clean_up"
         android:id="@+id/clean_up"
-        android:tooltipText="@string/clean_up"/>
+        android:contentDescription="@string/clean_up"/>
 
     <ImageButton
         android:layout_width="0dp"
@@ -83,7 +82,7 @@
         android:scaleType="centerInside"
         android:src="@drawable/export_checks"
         android:id="@+id/export_checks"
-        android:tooltipText="@string/export_checks"/>
+        android:contentDescription="@string/export_checks"/>
 
     <ImageButton
         android:layout_width="0dp"
@@ -93,7 +92,7 @@
         android:scaleType="centerInside"
         android:src="@drawable/import_checks"
         android:id="@+id/import_checks"
-        android:tooltipText="@string/import_checks"/>
+        android:contentDescription="@string/import_checks"/>
 
     <ImageButton
         android:layout_width="0dp"
@@ -103,7 +102,7 @@
         android:scaleType="centerInside"
         android:src="@drawable/info"
         android:id="@+id/info"
-        android:tooltipText="@string/info"/>
+        android:contentDescription="@string/info"/>
 
 </GridLayout>
 

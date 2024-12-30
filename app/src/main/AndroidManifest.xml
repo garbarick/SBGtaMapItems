@@ -12,7 +12,8 @@
         android:label="@string/app"
         android:theme="@android:style/Theme.DeviceDefault"
 		android:resizeableActivity = "true"
-        android:requestLegacyExternalStorage="true">
+        android:requestLegacyExternalStorage="true"
+        android:hardwareAccelerated="false">
 
         <activity
             android:name=".activity.Main"

@@ -70,14 +70,7 @@ public class Maps extends Util
 
     private void addItem(GameMap item)
     {
-        String checks = Preferences.get().getString(item.getKey(), "[]");
-        item.setChecks(JsonTools.get().parseChecks(checks));
-
-        String values = Preferences.get().getString(item.getKeyValues(), "[]");
-        item.setValues(JsonTools.get().parseValues(values));
-
         items.put(item.getKey(), item);
-
         String parent = item.getParent();
         if (!folders.containsKey(parent))
         {

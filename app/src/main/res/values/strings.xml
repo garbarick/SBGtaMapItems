@@ -15,4 +15,6 @@
     <string name="import_checks">Import checks</string>
     <string name="choose_file">Choose file</string>
     <string name="done">Done</string>
+    <string name="settings">Settings</string>
+    <string name="check_names">Check names</string>
 </resources>

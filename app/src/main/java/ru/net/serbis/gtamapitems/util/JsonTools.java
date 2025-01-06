@@ -96,7 +96,7 @@ public class JsonTools extends Util
     {
         return item.has(key) ? item.getInt(key) : 0;
     }
-    
+
     public JSONArray toJson(float[] data)
     {
         JSONArray result = new JSONArray();
@@ -174,8 +174,7 @@ public class JsonTools extends Util
                     JSONArray array = object.getJSONArray(key);
                     List<Check> checks = parseChecks(array, true);
                     GameMap map = maps.get(key);
-                    map.setChecks(checks);
-                    map.saveChecks();
+                    map.saveChecks(checks);
                 }
             }
             return true;
@@ -202,5 +201,44 @@ public class JsonTools extends Util
     private int pixelsToDp(int px)
     {
         return new Double(px / ((float) context.getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT)).intValue();
+    }
+
+    public JSONObject toJson(Map<Integer, String> data)
+    {
+        JSONObject result = new JSONObject();
+        try
+        {
+            for (Map.Entry<Integer, String> entry : data.entrySet())
+            {
+                result.put(entry.getKey().toString(), entry.getValue());
+            }
+        }
+        catch (Exception e)
+        {
+            Log.error(this, e);
+        }
+        return result;
+    }
+
+    public Map<Integer, String> parseChecNames(String data)
+    {
+        Map<Integer, String> result = new HashMap<Integer, String>();
+        try
+        {
+            JSONObject object = new JSONObject(data);
+            for (int i = 0; i < CheckBoxes.get().size(); i++)
+            {
+                String key = Integer.valueOf(i).toString();
+                if (object.has(key))
+                {
+                    result.put(i, object.getString(key));
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Log.error(this, e);
+        }
+        return result;
     }
 }

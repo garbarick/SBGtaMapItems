@@ -43,8 +43,7 @@ public class MapSelectListener implements PopupMenu.OnMenuItemClickListener, Ima
         }
         if (current != null)
         {
-            current.setValues(imageMap.getMatrixValues());
-            current.saveValues();
+            current.saveValues(imageMap.getMatrixValues());
         }
         final String action = intent.getAction();
         if (Constants.PARENT.equals(action))
@@ -95,8 +94,7 @@ public class MapSelectListener implements PopupMenu.OnMenuItemClickListener, Ima
     @Override
     public void onChangeChecking(ImageMap view)
     {
-        current.setChecks(view.getChecks());
-        current.saveChecks();
+        current.saveChecks(view.getChecks());
         maps.setText(current.getFullName());
         current.setItemTitle();
     }
@@ -104,7 +102,6 @@ public class MapSelectListener implements PopupMenu.OnMenuItemClickListener, Ima
     @Override
     public void onChangeMatrixValues(ImageMap view)
     {
-        current.setValues(view.getMatrixValues());
-        current.saveValues();
+        current.saveValues(view.getMatrixValues());
     }
 }

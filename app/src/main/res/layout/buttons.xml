@@ -100,6 +100,16 @@
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
         android:scaleType="centerInside"
+        android:src="@android:drawable/ic_menu_manage"
+        android:id="@+id/settings"
+        android:contentDescription="@string/settings"/>
+
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:scaleType="centerInside"
         android:src="@drawable/info"
         android:id="@+id/info"
         android:contentDescription="@string/info"/>

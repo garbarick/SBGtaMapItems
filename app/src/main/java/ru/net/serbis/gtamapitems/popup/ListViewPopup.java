@@ -15,16 +15,15 @@ public abstract class ListViewPopup<T extends ArrayAdapter> extends PopupWindow 
     protected ListView list;
     protected T adapter;
 
-    public ListViewPopup(Context context, int layoutId, int dimensionId)
+    public ListViewPopup(Context context, int layoutId)
     {
-        super(
-            LayoutInflater.from(context).inflate(layoutId, null),
-            (int) context.getResources().getDimension(dimensionId),
-            ViewGroup.LayoutParams.WRAP_CONTENT);
+        view = LayoutInflater.from(context).inflate(layoutId, null);
+        setContentView(view);
+        setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+        setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
 
         this.context = context;
         setOutsideTouchable(true);
-        view = getContentView();
         list = UITool.get().findView(view, R.id.list);
         adapter = createAdapter();
         list.setAdapter(adapter);

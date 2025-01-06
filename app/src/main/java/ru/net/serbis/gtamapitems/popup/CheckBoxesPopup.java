@@ -19,7 +19,7 @@ public class CheckBoxesPopup extends ListViewPopup<CheckBoxesAdapter>
 
     public CheckBoxesPopup(Context context)
     {
-        super(context, R.layout.list, R.dimen.check_boxes_popup_width);
+        super(context, R.layout.list);
     }
 
     @Override
@@ -45,6 +45,13 @@ public class CheckBoxesPopup extends ListViewPopup<CheckBoxesAdapter>
 
     public void updateCounts(List<Check> checks)
     {
-        adapter.updateCounts(checks);
+        adapter.updateCounts(this, checks);
+    }
+
+    public void setWidth(boolean hasNames)
+    {
+        int dimensionId = hasNames ? R.dimen.check_boxes_popup_with_names_width : R.dimen.check_boxes_popup_width;
+        int width = (int) context.getResources().getDimension(dimensionId);
+        setWidth(width);
     }
 }

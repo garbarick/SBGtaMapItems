@@ -17,7 +17,7 @@ public class ButtonsListener implements View.OnClickListener, CheckBoxesPopup.On
 {
     private Activity context;
     private ImageMap imageMap;
-    private CheckBoxesPopup checkBoxPopup;
+    private CheckBoxesPopup checkBoxesPopup;
     private MapsPopup mapsPopup;
 
     public ButtonsListener(Activity context)
@@ -31,8 +31,8 @@ public class ButtonsListener implements View.OnClickListener, CheckBoxesPopup.On
 
     private void initPopup()
     {
-        checkBoxPopup = new CheckBoxesPopup(context);
-        checkBoxPopup.setOnChangeCheckTypeListener(this);
+        checkBoxesPopup = new CheckBoxesPopup(context);
+        checkBoxesPopup.setOnChangeCheckTypeListener(this);
 
         Button maps = UITool.get().findView(context, R.id.maps);
         mapsPopup = new MapsPopup(context, maps);
@@ -77,6 +77,9 @@ public class ButtonsListener implements View.OnClickListener, CheckBoxesPopup.On
             case R.id.maps:
                 mapsPopup.show();
                 break;
+            case R.id.settings:
+                new CheckBoxNames(context).show();
+                break;
         }
     }
 
@@ -89,8 +92,8 @@ public class ButtonsListener implements View.OnClickListener, CheckBoxesPopup.On
         }
         else
         {
-            checkBoxPopup.updateCounts(imageMap.getChecks());
-            checkBoxPopup.show(button);
+            checkBoxesPopup.updateCounts(imageMap.getChecks());
+            checkBoxesPopup.show(button);
         }
     }
 

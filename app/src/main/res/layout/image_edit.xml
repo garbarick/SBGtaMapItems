@@ -2,7 +2,7 @@
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
-	android:layout_height="42dp"
+	android:layout_height="wrap_content"
 	android:orientation="horizontal">
 
 	<ImageView
@@ -13,12 +13,10 @@
 		android:layout_gravity="center"
 		android:layout_marginLeft="3dp"/>
 
-	<TextView
+	<EditText
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:text="Text"
-		android:gravity="center_vertical"
-		android:id="@+id/count"
+		android:layout_height="wrap_content"
+		android:id="@+id/value"
 		android:layout_marginLeft="10dp"/>
 
 </LinearLayout>

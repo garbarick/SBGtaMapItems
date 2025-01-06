@@ -6,12 +6,13 @@ import android.widget.*;
 import java.util.*;
 import ru.net.serbis.gtamapitems.*;
 import ru.net.serbis.gtamapitems.data.*;
+import ru.net.serbis.gtamapitems.popup.*;
 import ru.net.serbis.gtamapitems.util.*;
 import ru.net.serbis.utils.*;
 
 import ru.net.serbis.gtamapitems.R;
 
-public class CheckBoxesAdapter extends ArrayAdapter<Holder<Integer>>
+public class CheckBoxesAdapter extends ArrayAdapter<Holder<NameCount>>
 {
     public CheckBoxesAdapter(Context context)
     {
@@ -24,7 +25,7 @@ public class CheckBoxesAdapter extends ArrayAdapter<Holder<Integer>>
         int count = CheckBoxes.get().size();
         for (int i = 0; i < count; i++)
         {
-            add(new Holder<Integer>(0));
+            add(new Holder<NameCount>(new NameCount(null, 0)));
         }
     }
 
@@ -42,16 +43,26 @@ public class CheckBoxesAdapter extends ArrayAdapter<Holder<Integer>>
         return view;
     }
 
-    public void updateCounts(List<Check> checks)
+    public void updateCounts(CheckBoxesPopup popup, List<Check> checks)
     {
+        boolean hasNames = false;
+        GameMap last = Maps.get().getLast();
+        Map<Integer, String> names = last.getCheckNames();
         for (int i = 0; i < getCount(); i++)
         {
-            getItem(i).setValue(0);
+            NameCount value = getItem(i).getValue();
+            value.setName(names.get(i));
+            value.setCount(0);
+            if (names.containsKey(i))
+            {
+                hasNames = true;
+            }
         }
         for (Check check : checks)
         {
-            Holder<Integer> holder = getItem(check.type);
-            holder.setValue(holder.getValue() + 1);
+            NameCount value = getItem(check.type).getValue();
+            value.setCount(value.getCount() + 1);
         }
+        popup.setWidth(hasNames);
     }
 }

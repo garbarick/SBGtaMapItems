@@ -11,8 +11,6 @@ public class GameMap
     protected int id;
     protected int pictureId;
     protected int layerId;
-    private List<Check> checks = new ArrayList<Check>();
-    private float[] values;
     private MenuItem item;
 
     public GameMap(String key, int id, int pictureId, int layerId)
@@ -43,20 +41,15 @@ public class GameMap
         return layerId;
     }
 
-    public void setChecks(List<Check> checks)
-    {
-        this.checks.clear();
-        this.checks.addAll(checks);
-    }
-
     public List<Check> getChecks()
     {
-        return checks;
+        String checks = Preferences.get().getString(key, "[]");
+        return JsonTools.get().parseChecks(checks);
     }
 
     public int getCount()
     {
-        return checks.size();
+        return getChecks().size();
     }
 
     public String getFullName()
@@ -70,29 +63,26 @@ public class GameMap
         return result;
     }
 
-    public void setValues(float[] values)
-    {
-        this.values = values;
-    }
-
-    public void saveChecks()
+    public void saveChecks(List<Check> checks)
     {
         Preferences.get().setString(key, JsonTools.get().toJson(checks, false).toString());
     }
 
     public float[] getValues()
     {
-        return values;
+        Log.info(this, getKeyValues());
+        String values = Preferences.get().getString(getKeyValues(), "[]");
+        return JsonTools.get().parseValues(values);
     }
 
-    public String getKeyValues()
+    private String getKeyValues()
     {
         return key + "#values";
     }
 
-    public void saveValues()
+    public void saveValues(float[] values)
     {
-        Preferences.get().setString(getKeyValues(), JsonTools.get().toJson(getValues()).toString());
+        Preferences.get().setString(getKeyValues(), JsonTools.get().toJson(values).toString());
     }
 
     public String getName()
@@ -117,5 +107,20 @@ public class GameMap
             return;
         }
         item.setTitle(getName());
+    }
+
+    private String getKeyCheckNames()
+    {
+        return key + "#checkNames";
+    }
+
+    public Map<Integer, String> getCheckNames()
+    {
+        return JsonTools.get().parseChecNames(Preferences.get().getString(getKeyCheckNames(), "{}"));
+    }
+
+    public void saveCheckNames(Map<Integer, String> data)
+    {
+        Preferences.get().setString(getKeyCheckNames(), JsonTools.get().toJson(data).toString());
     }
 }

@@ -19,7 +19,8 @@
 		android:text="Text"
 		android:gravity="center_vertical"
 		android:id="@+id/count"
-		android:layout_marginLeft="10dp"/>
+		android:layout_marginLeft="10dp"
+		android:textColor="@android:color/white"/>
 
 </LinearLayout>
 

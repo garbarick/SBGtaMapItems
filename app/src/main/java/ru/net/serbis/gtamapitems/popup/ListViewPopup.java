@@ -1,6 +1,7 @@
 package ru.net.serbis.gtamapitems.popup;
 
 import android.content.*;
+import android.graphics.drawable.*;
 import android.view.*;
 import android.widget.*;
 import ru.net.serbis.gtamapitems.*;
@@ -23,6 +24,7 @@ public abstract class ListViewPopup<T extends ArrayAdapter> extends PopupWindow 
         setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
 
         this.context = context;
+        setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         setOutsideTouchable(true);
         list = UITool.get().findView(view, R.id.list);
         adapter = createAdapter();
